@@ -36,17 +36,8 @@ Main Success Scenario:
 5.	The user reviews their treatment progress:
   a.	The user can view detailed records of insulin delivery events, such as the time and amount of the last bolus injection, changes in basal rates, insulin duration, correction factors, or alerts triggered by CGM readings.
   b.	Healthcare providers can optimize treatment plans if patterns or irregularities in glucose control are identified.
-<<<<<<< HEAD
+
   
  Extensions:
- 
- NBansal97
- 
- 
- 
-=======
 
-Extensions:
-helloo
 
->>>>>>> 9d3e7f3 (Use Case Model.txt)
