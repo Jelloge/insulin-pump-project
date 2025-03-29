@@ -105,24 +105,13 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(ui->deliverBolusPage);
     });
 
-    clock = new QTimer(this);
-    connect(clock, &QTimer::timeout, this, &MainWindow::setMainClock);
-    clock->start(1000);
-
-    configData = new ConfigData(ui->stackedWidget->findChild<QWidget*>("SettingsPage_1"), ui->stackedWidget->findChild<QWidget*>("SettingsPage_2"));
-
-    isOn = false;
-    turnOff();
-
-    isCharging = false;
-    battery = 0;
-    ui->BatteryBar->setValue(battery);
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete configData;
+    delete Config;
+}
+
+void MainWindow::Clock() {
 }
 
 void MainWindow::turnOff() {

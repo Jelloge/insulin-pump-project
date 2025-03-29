@@ -1,5 +1,5 @@
-#ifndef CONFIGDATA_H
-#define CONFIGDATA_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <QObject>
 #include <QDateTimeEdit>
@@ -14,22 +14,21 @@
 #include <QString>
 #include <QTimer>
 
-class ConfigData : public QObject
+class Config : public QObject
 {
     Q_OBJECT
 
 public:
-    ConfigData(QWidget *_settingsPage1, QWidget *_settingsPage2);
-    ~ConfigData() { /* empty */ }
+    Config(QWidget *_settingsPage1, QWidget *_settingsPage2);
+    ~Config() { /* empty */ }
     bool isPINSet() const;
     int getCurPIN() const;
-    QDateTime getCurDateTime() const;
+    QDateTime getDateTime() const;
 
 public slots:
-    void setCurDateTime(const QDateTime &datePlusTimeSetting);
+    void setDateTime(const QDateTime &datePlusTimeSetting);
     void setPIN();
     void deletePIN();
-    void bluetoothCheck(bool checked);
 
 private:
     QWidget *settingsPage1;
@@ -39,4 +38,4 @@ private:
     bool bluetoothActive;
 };
 
-#endif // CONFIGDATA_H
+#endif // CONFIG_H
