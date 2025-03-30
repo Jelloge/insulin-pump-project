@@ -61,7 +61,7 @@ private:
     bool isOn;
     bool isCharging;
     int battery;
-    ConfigData *configData;
+    Config *config;
     bool existPIN;
     QTimer *clock;
     int profNum = 0;
