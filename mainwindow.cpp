@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget *parent)
     // Connect the OPTIONS button
     connect(ui->optionsButton, &QPushButton::clicked, this, [=]() {
         // Right now, no second page for Options, so just show a message
-        QMessageBox::information(this, "Options", "Options button clicked. (Future feature)");
+        QMessageBox::information(this, "Options", "Options button clicked. Future feature");
     });
 
     // connect the BOLUS button
     connect(ui->bolusButton, &QPushButton::clicked, this, [=]() {
         // Show a message or transition to a Bolus feature when ready
-        QMessageBox::information(this, "Bolus", "Bolus button clicked. (Future feature)");
+        QMessageBox::information(this, "Bolus", "Bolus button clicked. Future feature");
     });
 
     // The Tandem logo button (home):

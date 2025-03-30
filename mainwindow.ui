@@ -6,24 +6,106 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>1086</width>
+    <height>716</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Insulin Pump Simulator</string>
   </property>
-  <property name="centralWidget" stdset="0">
-   <cstring>centralwidget</cstring>
-  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_main">
-    <item>
+   <property name="styleSheet">
+    <string notr="true">background-color: #1E1E1E; color: white; font-family: 'Segoe UI';</string>
+   </property>
+   <widget class="QFrame" name="graphFrame">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>70</y>
+      <width>751</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #2A2A2A; border: 1px solid #555; border-radius: 5px;</string>
+    </property>
+    <widget class="QLabel" name="graphPlaceholderLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>84</y>
+       <width>731</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #AAAAAA; font-style: italic; font-size: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>CGM Graph Placeholder</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>731</width>
+       <height>27</height>
+      </rect>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_topBar">
       <item>
-       <widget class="QLabel" name="batteryLabel">
+       <widget class="QLabel" name="glucoseLabel">
         <property name="styleSheet">
-         <string notr="true">font-weight: bold;</string>
+         <string notr="true">font-weight: bold; font-size: 14pt; color: #00C8A0;</string>
+        </property>
+        <property name="text">
+         <string> 5.0 mmol/L                 </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="iobLabel">
+        <property name="styleSheet">
+         <string notr="true">color: white; font-weight: bold; font-size: 11pt;</string>
+        </property>
+        <property name="text">
+         <string>                        IOB: 1.2U</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>731</width>
+       <height>46</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_topBar_2">
+      <item>
+       <widget class="QLabel" name="batteryLabel">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>310</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-weight: bold; font-size: 11pt; color: lightgreen;</string>
         </property>
         <property name="text">
          <string>Battery: 100%</string>
@@ -34,22 +116,38 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_1">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QPushButton" name="tandemLogoButton">
+        <property name="toolTip">
+         <string>Return to Home</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
+        <property name="styleSheet">
+         <string notr="true">
+ QPushButton {
+     font: bold 18pt;
+     background-color: #333;
+     color: white;
+     border-radius: 10px;
+     border: 2px solid #555;
+     width: 40px;
+     height: 40px;
+ }
+     </string>
         </property>
-       </spacer>
+        <property name="text">
+         <string>T</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="timeDateLabel">
+        <property name="maximumSize">
+         <size>
+          <width>268</width>
+          <height>310</height>
+         </size>
+        </property>
         <property name="styleSheet">
-         <string notr="true">font-weight: bold;</string>
+         <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
         </property>
         <property name="text">
          <string>15:30 | 14 Nov</string>
@@ -59,94 +157,32 @@
         </property>
        </widget>
       </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="glucoseLabel">
-        <property name="styleSheet">
-         <string notr="true">font-weight: bold; color: rgb(0, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>5.0 mmol/L</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QFrame" name="graphFrame">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(240, 240, 240);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_graph">
-       <item>
-        <widget class="QLabel" name="graphPlaceholderLabel">
-         <property name="styleSheet">
-          <string notr="true">color: gray; font-style: italic;</string>
-         </property>
-         <property name="text">
-          <string>CGM Graph Placeholder</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>330</y>
+       <width>731</width>
+       <height>101</height>
+      </rect>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_bottom">
-      <item>
-       <widget class="QLabel" name="iobLabel">
-        <property name="styleSheet">
-         <string notr="true">font-weight: bold;</string>
-        </property>
-        <property name="text">
-         <string>IOB: 1.2U</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item>
        <widget class="QPushButton" name="optionsButton">
         <property name="styleSheet">
-         <string notr="true">font: bold 10pt; color: rgb(255, 170, 0); padding: 8px 12px;</string>
+         <string notr="true">
+ QPushButton {
+     background-color: transparent;
+     color: #FFA500;
+     font: bold 12pt;
+     border: none;
+ }
+ QPushButton:hover {
+     color: #FFCC66;
+ }
+         </string>
         </property>
         <property name="text">
          <string>OPTIONS</string>
@@ -154,22 +190,19 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>10</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QPushButton" name="bolusButton">
         <property name="styleSheet">
-         <string notr="true">font: bold 10pt; color: rgb(0, 170, 255); padding: 8px 12px;</string>
+         <string notr="true">
+ QPushButton {
+     background-color: transparent;
+     color: #00AEEF;
+     font: bold 12pt;
+     border: none;
+ }
+ QPushButton:hover {
+     color: #66CCFF;
+ }
+         </string>
         </property>
         <property name="text">
          <string>BOLUS</string>
@@ -177,26 +210,7 @@
        </widget>
       </item>
      </layout>
-    </item>
-   </layout>
-   <widget class="QPushButton" name="tandemLogoButton">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>30</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Return to Home</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: bold 18pt; background-color: #444; color: white; border-radius: 8px;</string>
-    </property>
-    <property name="text">
-     <string>T</string>
-    </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -204,7 +218,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>1086</width>
      <height>22</height>
     </rect>
    </property>
