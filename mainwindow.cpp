@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
-// #include <QtConcurrent/QtConcurrent>  // concurrency for battery logic
 
 // If we have a configData or other classes, include them here
 // #include "configdata.h"
@@ -75,19 +74,19 @@ MainWindow::~MainWindow()
 }
 
 // ------------------------------------------
-// COMMENTED OUT: Old Slots & Methods
+// COMMENTED OUT: Methods
 // until we actually implement them or hook them to the new UI
 // ------------------------------------------
 
 void MainWindow::turnOff() {
-    // Future: if you want an OFF screen
+    isOn = false;
+    batteryManager->stopAll();
 }
 
 void MainWindow::turnOn() {
     isOn = true;
-    startBatteryDrain();
+    batteryManager->startDraining();
 }
-
 
 bool MainWindow::checkingPIN() {
     // Future: if you have a PIN system
@@ -98,54 +97,10 @@ void MainWindow::returnHome() {
     // Future: if you reintroduce multi-page logic
 }
 
-void MainWindow::chargeBattery() {
-    if (isCharging || batteryLevel >= 100) return;
-
-    isCharging = true;
-
-    batteryChargeTimer = new QTimer(this);
-    connect(batteryChargeTimer, &QTimer::timeout, this, [=]() {
-        if (batteryLevel < 100) {
-            batteryLevel++;
-            ui->BatteryBar->setValue(batteryLevel);
-            ui->batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
-        } else {
-            batteryChargeTimer->stop();
-        }
-    });
-
-    batteryChargeTimer->start(500); // charge every 0.5s
-}
-
 void MainWindow::chargerUnplugged() {
-    isCharging = false;
-    if (batteryChargeTimer) batteryChargeTimer->stop();
-    // Future: for battery logic
+    batteryManager->unplug();
 }
 
-void MainWindow::BatteryDrain() {
-    if (!isOn) return;
-
-    batteryDrainTimer = new QTimer(this);
-    connect(batteryDrainTimer, &QTimer::timeout, this, [=]() {
-        if (!isCharging && batteryLevel > 0) {
-            batteryLevel--;
-            ui->BatteryBar->setValue(batteryLevel);
-            ui->batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
-
-            if (batteryLevel <= 10) {
-                ui->batteryLabel->setStyleSheet("color: red;");
-            }
-
-            if (batteryLevel <= 0) {
-                batteryDrainTimer->stop();
-                turnOff(); // simulate device turning off
-            }
-        }
-    });
-
-    batteryDrainTimer->start(3000); // drains 1% every 3 sec
-}
 void MainWindow::CreateProfileClicked(){
     // Future: if you add profiles
 }
