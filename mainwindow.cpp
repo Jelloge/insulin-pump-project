@@ -21,6 +21,15 @@ MainWindow::MainWindow(QWidget *parent)
         QMessageBox::information(this, "Options", "Options button clicked. Future feature");
     });
 
+
+    // connect the charge button
+
+    connect(ui->ChargeButton, &QPushButton::clicked, this, &MainWindow::chargeDevice);
+
+    // connect unplug button
+
+    connect(ui->UnplugButton, &QPushButton::clicked, this, &MainWindow::unplugCharger);
+
     // connect the BOLUS button
     connect(ui->bolusButton, &QPushButton::clicked, [=]() {
         // Show a message or transition to a Bolus feature when ready
@@ -75,8 +84,10 @@ void MainWindow::turnOff() {
 }
 
 void MainWindow::turnOn() {
-    // Future: if you want an ON button or PIN logic
+    isOn = true;
+    startBatteryDrain();
 }
+
 
 bool MainWindow::checkingPIN() {
     // Future: if you have a PIN system
@@ -88,17 +99,53 @@ void MainWindow::returnHome() {
 }
 
 void MainWindow::chargeBattery() {
-    // Future: concurrency or battery simulation
+    if (isCharging || batteryLevel >= 100) return;
+
+    isCharging = true;
+
+    batteryChargeTimer = new QTimer(this);
+    connect(batteryChargeTimer, &QTimer::timeout, this, [=]() {
+        if (batteryLevel < 100) {
+            batteryLevel++;
+            ui->BatteryBar->setValue(batteryLevel);
+            ui->batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
+        } else {
+            batteryChargeTimer->stop();
+        }
+    });
+
+    batteryChargeTimer->start(500); // charge every 0.5s
 }
 
 void MainWindow::chargerUnplugged() {
+    isCharging = false;
+    if (batteryChargeTimer) batteryChargeTimer->stop();
     // Future: for battery logic
 }
 
-void MainWindow::batteryDrain() {
-    // Future: for battery logic
-}
+void MainWindow::BatteryDrain() {
+    if (!isOn) return;
 
+    batteryDrainTimer = new QTimer(this);
+    connect(batteryDrainTimer, &QTimer::timeout, this, [=]() {
+        if (!isCharging && batteryLevel > 0) {
+            batteryLevel--;
+            ui->BatteryBar->setValue(batteryLevel);
+            ui->batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
+
+            if (batteryLevel <= 10) {
+                ui->batteryLabel->setStyleSheet("color: red;");
+            }
+
+            if (batteryLevel <= 0) {
+                batteryDrainTimer->stop();
+                turnOff(); // simulate device turning off
+            }
+        }
+    });
+
+    batteryDrainTimer->start(3000); // drains 1% every 3 sec
+}
 void MainWindow::CreateProfileClicked(){
     // Future: if you add profiles
 }

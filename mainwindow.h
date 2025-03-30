@@ -11,8 +11,6 @@
 
 #include "config.h"
 
-#define MAX_BATT 100
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -56,10 +54,12 @@ private:
     Ui::MainWindow *ui;
     bool isOn;
     bool isCharging;
-    int battery;
+    int batteryLevel = 100;
     Config *config;
     bool existPIN;
     QTimer *clock;
+    QTimer *batteryDrainTimer;
+    QTimer *batteryChargeTimer;
     int profNum = 0;
 
     void batteryDrain();
