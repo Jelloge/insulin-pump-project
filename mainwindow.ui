@@ -6,238 +6,210 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1086</width>
+    <height>716</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Insulin Pump Simulator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="PPHome">
+   <property name="styleSheet">
+    <string notr="true">background-color: #1E1E1E; color: white; font-family: 'Segoe UI';</string>
+   </property>
+   <widget class="QFrame" name="graphFrame">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>40</y>
-      <width>581</width>
-      <height>301</height>
+      <x>40</x>
+      <y>70</y>
+      <width>751</width>
+      <height>441</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Panel</enum>
+    <property name="styleSheet">
+     <string notr="true">background-color: #2A2A2A; border: 1px solid #555; border-radius: 5px;</string>
     </property>
-    <property name="currentIndex">
-     <number>1</number>
-    </property>
-    <widget class="QWidget" name="page">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>521</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>80</y>
-         <width>111</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>T</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&lt;-</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>20</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-      <widget class="QGraphicsView" name="graphicsView">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>341</width>
-         <height>261</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>60</y>
-         <width>251</width>
-         <height>201</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout"/>
-      </widget>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>170</y>
-         <width>51</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>^</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>220</y>
-         <width>51</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>v</string>
-       </property>
-      </widget>
-      <zorder>pushButton</zorder>
-      <zorder>graphicsView</zorder>
-      <zorder>verticalLayoutWidget</zorder>
-      <zorder>pushButton_4</zorder>
-      <zorder>pushButton_5</zorder>
-      <zorder>pushButton_3</zorder>
-      <zorder>pushButton_2</zorder>
-     </widget>
+    <widget class="QLabel" name="graphPlaceholderLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>84</y>
+       <width>731</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #AAAAAA; font-style: italic; font-size: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>CGM Graph Placeholder</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
-    <widget class="QWidget" name="page_2">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>521</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <widget class="QPushButton" name="pushButton_11">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>80</y>
-         <width>111</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>T</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_12">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&lt;-</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_13">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>20</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-      <widget class="QGraphicsView" name="graphicsView_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>341</width>
-         <height>261</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>60</y>
-         <width>251</width>
-         <height>201</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3"/>
-      </widget>
-      <widget class="QPushButton" name="pushButton_14">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>170</y>
-         <width>51</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>^</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_15">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>220</y>
-         <width>51</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>v</string>
-       </property>
-      </widget>
-      <zorder>pushButton_11</zorder>
-      <zorder>graphicsView_3</zorder>
-      <zorder>verticalLayoutWidget_3</zorder>
-      <zorder>pushButton_14</zorder>
-      <zorder>pushButton_15</zorder>
-      <zorder>pushButton_12</zorder>
-      <zorder>pushButton_13</zorder>
-     </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>731</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_topBar">
+      <item>
+       <widget class="QLabel" name="glucoseLabel">
+        <property name="styleSheet">
+         <string notr="true">font-weight: bold; font-size: 14pt; color: #00C8A0;</string>
+        </property>
+        <property name="text">
+         <string> 5.0 mmol/L                 </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="iobLabel">
+        <property name="styleSheet">
+         <string notr="true">color: white; font-weight: bold; font-size: 11pt;</string>
+        </property>
+        <property name="text">
+         <string>                        IOB: 1.2U</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>731</width>
+       <height>46</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_topBar_2">
+      <item>
+       <widget class="QLabel" name="batteryLabel">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>310</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-weight: bold; font-size: 11pt; color: lightgreen;</string>
+        </property>
+        <property name="text">
+         <string>Battery: 100%</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="tandemLogoButton">
+        <property name="toolTip">
+         <string>Return to Home</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+ QPushButton {
+     font: bold 18pt;
+     background-color: #333;
+     color: white;
+     border-radius: 10px;
+     border: 2px solid #555;
+     width: 40px;
+     height: 40px;
+ }
+     </string>
+        </property>
+        <property name="text">
+         <string>T</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="timeDateLabel">
+        <property name="maximumSize">
+         <size>
+          <width>268</width>
+          <height>310</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
+        </property>
+        <property name="text">
+         <string>15:30 | 14 Nov</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>330</y>
+       <width>731</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_bottom">
+      <item>
+       <widget class="QPushButton" name="optionsButton">
+        <property name="styleSheet">
+         <string notr="true">
+ QPushButton {
+     background-color: transparent;
+     color: #FFA500;
+     font: bold 12pt;
+     border: none;
+ }
+ QPushButton:hover {
+     color: #FFCC66;
+ }
+         </string>
+        </property>
+        <property name="text">
+         <string>OPTIONS</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bolusButton">
+        <property name="styleSheet">
+         <string notr="true">
+ QPushButton {
+     background-color: transparent;
+     color: #00AEEF;
+     font: bold 12pt;
+     border: none;
+ }
+ QPushButton:hover {
+     color: #66CCFF;
+ }
+         </string>
+        </property>
+        <property name="text">
+         <string>BOLUS</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>
@@ -246,7 +218,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1086</width>
      <height>22</height>
     </rect>
    </property>
