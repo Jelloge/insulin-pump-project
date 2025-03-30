@@ -1,23 +1,39 @@
 // Stores global settings like PIN, current time, etc.
 // Please use the functions in config instead of duplicating logic if you need to check or change anything related to system settings
 
+// We could put volume / alert preferences in here too, Insulin settings like default basal/bolus thresholds, etc.
+
 #include "config.h"
 
-Config::Config(QWidget *_settingsPage1, QWidget *_settingsPage2) : settingsPage1(_settingsPage1), settingsPage2(_settingsPage2)
+//
+// Constructor: LINK TO RELEVANT UI PAGES
+//
+
+Config::Config(QWidget *settingsPage1, QWidget *settingsPage2)
+    : settingsPage1(settingsPage1), settingsPage2(settingsPage2)
+
 {
     curDateTime = QDateTime::currentDateTime();
     curPIN = -1;
 
-    QPushButton *deletePINButton = settingsPage1->findChild<QPushButton*>("DeletePINButton");
+//
+// connecting UI elements from settings page 1
+//
+
+    QPushButton *deletePINButton = settingsPage1->findChild<QPushButton*>("DeletePINButton"); // PIN modification
     connect(deletePINButton, &QPushButton::clicked, this, &Config::deletePIN);
 
-    QPushButton *setPINButton = settingsPage1->findChild<QPushButton*>("SetPINButton");
+    QPushButton *setPINButton = settingsPage1->findChild<QPushButton*>("SetPINButton"); // PIN modification
     connect(setPINButton, &QPushButton::clicked, this, &Config::setPIN);
 }
 
-void Config::setDateTime(const QDateTime &datePlusTimeSetting) {
-    if(curDateTime != datePlusTimeSetting){
-        curDateTime = datePlusTimeSetting;
+//
+// time management
+//
+
+void Config::setDateTime(const QDateTime &dateTime) {
+    if(curDateTime != dateTime) {
+        curDateTime = dateTime;
     }
 }
 
@@ -25,21 +41,29 @@ QDateTime Config::getDateTime() const{
     return curDateTime;
 }
 
+//
+// PIN management
+//
+
 void Config::setPIN() {
     QString newPIN = settingsPage1->findChild<QTextEdit*>("NewPIN")->toPlainText();
+
     if (newPIN.contains(QRegularExpression("\\D"))) {
-        curPIN = -1;
+        curPIN = -1; // Invalid, contains non digit
     } else {
         curPIN = newPIN.toInt();
     }
 
-    if(isPINSet()) {
+    // Update UI feedback
+
+    if (isPINSet()) {
         settingsPage1->findChild<QTextBrowser*>("CurrentPIN")->setText(newPIN);
         settingsPage1->findChild<QTextEdit*>("NewPIN")->setText("");
         settingsPage1->findChild<QLabel*>("ErrorNewPIN")->setText("");
-    }else {
-        settingsPage1->findChild<QLabel*>("ErrorNewPIN")->setText("Invalid PIN");
-        settingsPage1->findChild<QLabel*>("ErrorNewPIN")->setStyleSheet("color: red;");
+    } else {
+        QLabel *errorLabel = settingsPage1->findChild<QLabel*>("ErrorNewPIN");
+        errorLabel->setText("Invalid PIN");
+        errorLabel->setStyleSheet("color: red;");
     }
 }
 
@@ -50,10 +74,7 @@ void Config::deletePIN() {
 
 
 bool Config::isPINSet() const {
-    if(curPIN > 0) {
-        return true;
-    }
-    return false;
+    return curPIN > 0;
 }
 
 int Config::getCurPIN() const {

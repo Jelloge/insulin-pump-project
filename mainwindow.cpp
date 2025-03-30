@@ -15,48 +15,37 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //
-    // COMMENTED/REMOVED OLD REFERENCE
-    //
-    // connect(ui->OnButton, SIGNAL(clicked()), this, SLOT(turnOn()));
-    // connect(ui->OffButton, SIGNAL(clicked()), this, SLOT(turnOff()));
-    // connect(ui->TandemLogo, SIGNAL(clicked()), this, SLOT(returnHomePage()));
-    // Any stackedWidget references or old features not in the new UI are removed
-
-    //
-    //
-
     // Connect the OPTIONS button
-    connect(ui->optionsButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->optionsButton, &QPushButton::clicked, [=]() {
         // Right now, no second page for Options, so just show a message
         QMessageBox::information(this, "Options", "Options button clicked. Future feature");
     });
 
     // connect the BOLUS button
-    connect(ui->bolusButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->bolusButton, &QPushButton::clicked, [=]() {
         // Show a message or transition to a Bolus feature when ready
         QMessageBox::information(this, "Bolus", "Bolus button clicked. Future feature");
     });
 
     // The Tandem logo button (home):
-    connect(ui->tandemLogoButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->tandemLogoButton, &QPushButton::clicked, [=]() {
         // If we only have one page (home), we can just pop a message
         QMessageBox::information(this, "Home", "Already at the Home screen!");
     });
 
     //
-    // show the time updating every second --
+    // show the time updating every second, intervals of one second
     //
     QTimer *clockTimer = new QTimer(this);
     connect(clockTimer, &QTimer::timeout, this, [=]() {
-        ui->timeDateLabel->setText(QDateTime::currentDateTime().toString("hh:mm  |  dd MMM"));
+        ui->timeDateLabel->setText(QDateTime::currentDateTime().toString("hh:mm:ss  |  dd MMM"));
     });
     clockTimer->start(1000);
 
     //
     // Set initial battery + glucose + IOB values
     //
-    // Just placeholders for now
+    // JUST PLACEHOLDERS FOR NOW
     ui->batteryLabel->setText("Battery: 100%");
     ui->glucoseLabel->setText("5.0 mmol/L");
     ui->iobLabel->setText("IOB: 1.2U");
@@ -108,10 +97,6 @@ void MainWindow::chargerUnplugged() {
 
 void MainWindow::batteryDrain() {
     // Future: for battery logic
-}
-
-void MainWindow::DateTimeChanged(){
-    // Future: if user changes the time
 }
 
 void MainWindow::CreateProfileClicked(){

@@ -48,7 +48,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -150,7 +150,7 @@
          <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
         </property>
         <property name="text">
-         <string>15:30 | 14 Nov</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -159,7 +159,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>

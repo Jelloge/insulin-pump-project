@@ -9,7 +9,7 @@
 #include <QFont>
 #include <QString>
 
-#include "configdata.h"
+#include "config.h"
 
 #define MAX_BATT 100
 
@@ -32,10 +32,6 @@ public slots:
     void chargerUnplugged();
 
 private slots:
-
-    void setMainClock();
-
-    void DateTimeChanged(const QDateTime &dateTime);
 
     void CreateProfileClicked();
 
