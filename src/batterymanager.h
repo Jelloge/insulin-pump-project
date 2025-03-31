@@ -11,7 +11,6 @@ class BatteryManager : public QObject {
 public:
 
     BatteryManager(QObject *parent, QLabel *batteryLabel, QLabel *chargingIcon = nullptr);
-    explicit BatteryManager(QObject *parent = nullptr, QLabel *label = nullptr);
 
     void start();
     void stop();

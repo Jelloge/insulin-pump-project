@@ -11,10 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    isOn = false;  // Initialize isOn
+    // Initialize Battery Manager
+    batteryManager = new BatteryManager(this, ui->batteryLabel);
 
-    // initialize battery manager
-    batteryManager = new BatteryManager(this, ui->batteryLabel, ui->chargingIconLabel);
+    // 🔥 Call turnOn() to start battery drain
+    turnOn();
 
     // automatically turn off when battery is depleted
     connect(batteryManager, &BatteryManager::batteryDepleted, this, &MainWindow::turnOff);

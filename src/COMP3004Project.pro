@@ -29,3 +29,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     ui_icons/charging.jpg
+
+RESOURCES += \
+    ui_icons/resources.qrc
