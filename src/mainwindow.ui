@@ -29,7 +29,7 @@
     <property name="styleSheet">
      <string notr="true">background-color: #2A2A2A; border: 1px solid #555; border-radius: 5px;</string>
     </property>
-    <widget class="QLabel" name="graphPlaceholderLabel">
+    <widget class="QChartView" name="cgmGraphView">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -41,11 +41,11 @@
      <property name="styleSheet">
       <string notr="true">color: #AAAAAA; font-style: italic; font-size: 10pt;</string>
      </property>
-     <property name="text">
-      <string>CGM Graph Placeholder</string>
-     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+     <property name="text" stdset="0">
+      <string>CGM Graph Placeholder</string>
      </property>
     </widget>
     <widget class="QWidget" name="layoutWidget">
@@ -264,6 +264,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

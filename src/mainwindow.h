@@ -8,9 +8,16 @@
 #include <QTextEdit>
 #include <QFont>
 #include <QString>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QChart>
+#include <QAreaSeries>
 
+#include "glucosemonitoring.h"
 #include "config.h"
 #include "batterymanager.h"
+
+using namespace QtCharts;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +48,12 @@ private slots:
     void SetDeliverySplitClicked();
     void SetDurationClicked();
     void SetDeliveryTimeClicked();
+    //
+    void setupGraph();
+    void updateGraph(double value);
+    void onLowGlucoseAlert(double value);
+
+    //
 
 private:
     Ui::MainWindow *ui;
@@ -50,6 +63,15 @@ private:
     bool existPIN;
     QTimer *clock;
     int profNum = 0;
+
+    //
+    GlucoseMonitoring *glucoseMonitoring;
+    QChart *cgmGraphView;
+    QLineSeries *series;
+    QLineSeries *lowerLine;
+    QLineSeries *upperLine;
+    QAreaSeries *targetArea;
+    //
 
     bool checkingPIN();
     void changeDateTime(const QDateTime &datePlusTime2);
