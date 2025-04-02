@@ -20,7 +20,7 @@ BatteryManager::BatteryManager(QObject *parent, QLabel *label, QLabel *icon)
 void BatteryManager::start() {
     isOn = true;
     updateUI();
-    batteryDrainTimer->start(3000);
+    batteryDrainTimer->start(3000); //test
 }
 
 void BatteryManager::stopAll() {
