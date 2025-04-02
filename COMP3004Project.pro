@@ -11,15 +11,18 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    options.cpp
+    optionsmenu.cpp \
+    personalprofiles.cpp
 
 HEADERS += \
     mainwindow.h \
-    options.h
+    optionsmenu.h \
+    personalprofiles.h
 
 FORMS += \
     mainwindow.ui \
-    options.ui
+    optionsmenu.ui \
+    personalprofiles.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
