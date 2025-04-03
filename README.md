@@ -1,1 +1,1 @@
-ESample is the file where the program of the bolus calculator is located
+ESample is the file where the program for the bolus calculator is located
