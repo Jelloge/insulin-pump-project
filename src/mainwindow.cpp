@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "optionsmenu.h"
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialize Battery Manager
     batteryManager = new BatteryManager(this, ui->batteryLabel);
 
-    // 🔥 Call turnOn() to start battery drain
+    // Call turnOn() to start battery drain
     turnOn();
 
     // automatically turn off when battery is depleted
@@ -60,7 +60,7 @@ MainWindow::~MainWindow()
     delete config;
 }
 
-// ---------- POWER MANAGEMENT ----------
+// ---------- PLUGGING STUFF IN ----------
 
 void MainWindow::turnOff() {
     isOn = false;
@@ -78,6 +78,12 @@ bool MainWindow::checkingPIN() {
 
 void MainWindow::returnHome() {
     // placeholder
+}
+
+void MainWindow::on_optionsButton_clicked()
+{
+    optionsMenu *options = new optionsMenu(this);
+    options->show();
 }
 
 // ---------- FUTURE FEATURES / STUBS ---------- FEEL FREE TO MODIFY OR ADD YOUR METHODS !

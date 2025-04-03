@@ -8,7 +8,6 @@
 #include <QTextEdit>
 #include <QFont>
 #include <QString>
-
 #include "config.h"
 #include "batterymanager.h"
 
@@ -32,15 +31,8 @@ public slots:
 // feel free to modify or add more
 
 private slots:
-    void CreateProfileClicked();
+    void on_optionsButton_clicked();
     void AddCarbsClicked();
-    void AddBGClicked();
-    void ConfirmBolusClicked();
-    void CancelBolusEntry();
-    void ConfirmBolusRejected();
-    void SetDeliverySplitClicked();
-    void SetDurationClicked();
-    void SetDeliveryTimeClicked();
 
 private:
     Ui::MainWindow *ui;

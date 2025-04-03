@@ -12,15 +12,17 @@ SOURCES += \
     batterymanager.cpp \
     config.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    optionsmenu.cpp \
+    personalprofiles.cpp
 
 HEADERS += \
-    batterymanager.h \
-    config.h \
     mainwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    optionsmenu.ui \
+    personalprofiles.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
