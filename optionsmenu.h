@@ -28,6 +28,18 @@ private slots:
 
     void on_tandemLogoButton_clicked();
 
+    void on_loadButton_clicked();
+
+    void on_activityButton_clicked();
+
+    void on_myCGMButton_clicked();
+
+    void on_deviceSettingsButton_clicked();
+
+    void on_historyButton_clicked();
+
+    void on_stopInsulinButton_clicked();
+
 private:
     Ui::optionsMenu *ui;
 };
