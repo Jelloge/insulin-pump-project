@@ -12,12 +12,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     optionsmenu.cpp \
-    personalprofiles.cpp
+    personalprofiles.cpp \
+    profile.cpp
 
 HEADERS += \
     mainwindow.h \
     optionsmenu.h \
-    personalprofiles.h
+    personalprofiles.h \
+    profile.h
 
 FORMS += \
     mainwindow.ui \
