@@ -26,13 +26,11 @@ public:
 public slots:
     void turnOff();
     void turnOn();
-    void returnHome();
 
 // feel free to modify or add more
 
 private slots:
     void on_optionsButton_clicked();
-    void AddCarbsClicked();
 
 private:
     Ui::MainWindow *ui;

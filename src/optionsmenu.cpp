@@ -2,6 +2,9 @@
 #include "ui_optionsmenu.h"
 #include "mainwindow.h"
 #include "personalprofiles.h"
+#include "batterymanager.h"
+#include "mainwindow.h"
+#include "config.h"
 
 optionsMenu::optionsMenu(QWidget *parent) :
     QWidget(parent),
@@ -9,6 +12,15 @@ optionsMenu::optionsMenu(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
+
+    // Battery function
+    BatteryManager::instance()->updateLabel(ui->batteryLabel);
+
+    // Clock
+    connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
+        ui->timeDateLabel->setText(time);
+    });
+
 }
 
 optionsMenu::~optionsMenu()
@@ -16,18 +28,20 @@ optionsMenu::~optionsMenu()
     delete ui;
 }
 
-void optionsMenu::on_myPumpButton_clicked()
+void optionsMenu::on_stopInsulinButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-
-void optionsMenu::on_personalProfilesButton_clicked()
+void optionsMenu::on_loadButton_clicked()
 {
-    personalProfiles *profilesPage = new personalProfiles(this);
-    profilesPage->show();
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
+void optionsMenu::on_activityButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
 
 void optionsMenu::on_tandemLogoButton_clicked()
 {
@@ -36,4 +50,34 @@ void optionsMenu::on_tandemLogoButton_clicked()
         parentWindow->show();
     }
 }
+
+void optionsMenu::on_myPumpButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+void optionsMenu::on_personalProfilesButton_clicked()
+{
+    personalProfiles *profilesPage = new personalProfiles(this);
+    profilesPage->show();
+}
+
+void optionsMenu::on_myCGMButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+
+void optionsMenu::on_deviceSettingsButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+
+void optionsMenu::on_historyButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+
 
