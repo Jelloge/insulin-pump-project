@@ -1,17 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "optionsmenu.h"
+
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
-#include "batterymanager.h"
-#include "config.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    options = new optionsMenu(this);
+    options->hide();
+
+    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
 
     // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
@@ -49,7 +53,6 @@ MainWindow::~MainWindow()
 // Open Options Menu
 void MainWindow::on_optionsButton_clicked()
 {
-    optionsMenu *options = new optionsMenu(this);
     options->show();
 }
 

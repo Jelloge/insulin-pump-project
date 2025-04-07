@@ -4,13 +4,19 @@
         "basalRate": 0.8,
         "carbRatio": 10,
         "correctionFactor": 50,
-        "targetGlucose": 100
+        "targetGlucose": 100,
+        "insulinDuration": 4,
+        "maxBolus": 2,
+        "carbohydrates": "yes"
     },
     {
         "name": "Exercise Mode",
         "basalRate": 0.6,
         "carbRatio": 15,
         "correctionFactor": 60,
-        "targetGlucose": 110
+        "targetGlucose": 110,
+        "insulinDuration": 2,
+        "maxBolus": 4,
+        "carbohydrates": "no"
     }
 ]

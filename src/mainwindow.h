@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "optionsmenu.h"
+#include "config.h"
+#include "batterymanager.h"
+
 #include <QMainWindow>
 #include <QtConcurrent/QtConcurrent>
 #include <QThread>
@@ -8,8 +12,6 @@
 #include <QTextEdit>
 #include <QFont>
 #include <QString>
-#include "config.h"
-#include "batterymanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,13 +33,14 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    optionsMenu *options = nullptr;
     BatteryManager *batteryManager;
     Config *config;
+    
     bool isOn;
     bool existPIN;
     QTimer *clock;
     int profNum = 0;
-
     bool checkingPIN();
     void changeDateTime(const QDateTime &datePlusTime2);
 };

@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>861</width>
+     <width>831</width>
      <height>581</height>
     </rect>
    </property>
@@ -41,7 +41,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>0</y>
+       <y>5</y>
        <width>731</width>
        <height>46</height>
       </rect>
@@ -59,7 +59,10 @@
          <string notr="true">font-weight: bold; font-size: 11pt; color: lightgreen;</string>
         </property>
         <property name="text">
-         <string/>
+         <string>Battery: 100%</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -98,7 +101,10 @@ QPushButton {
          <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
         </property>
         <property name="text">
-         <string/>
+         <string>15:30 | 14 Nov</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -123,16 +129,16 @@ QPushButton {
          </size>
         </property>
         <property name="currentIndex">
-         <number>7</number>
+         <number>8</number>
         </property>
         <widget class="QWidget" name="mainMenuPage">
          <widget class="QScrollArea" name="scrollArea">
           <property name="geometry">
            <rect>
-            <x>-1</x>
+            <x>9</x>
             <y>49</y>
-            <width>731</width>
-            <height>331</height>
+            <width>711</width>
+            <height>321</height>
            </rect>
           </property>
           <property name="widgetResizable">
@@ -143,8 +149,8 @@ QPushButton {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>715</width>
-             <height>404</height>
+             <width>695</width>
+             <height>474</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -153,8 +159,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+        font: bold 12pt;
+    background-color: #333;
+    color: red;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>STOP INSULIN</string>
@@ -166,8 +181,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>Load</string>
@@ -179,8 +203,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>Activity</string>
@@ -192,8 +225,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>My Pump</string>
@@ -205,8 +247,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>My CGM</string>
@@ -218,8 +269,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>Device Settings</string>
@@ -231,8 +291,17 @@ QPushButton {
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>60</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
               </property>
               <property name="text">
                <string>History</string>
@@ -245,7 +314,7 @@ QPushButton {
          <widget class="QWidget" name="horizontalLayoutWidget">
           <property name="geometry">
            <rect>
-            <x>9</x>
+            <x>10</x>
             <y>10</y>
             <width>711</width>
             <height>31</height>
@@ -253,12 +322,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QPushButton" name="backButton">
+            <widget class="QPushButton" name="backButton_OptionsMain">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -267,8 +345,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="optionsLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>Options</string>
+              <string>OPTIONS</string>
              </property>
             </widget>
            </item>
@@ -276,14 +364,24 @@ QPushButton {
          </widget>
         </widget>
         <widget class="QWidget" name="stopInsulinPage">
+         <property name="styleSheet">
+          <string notr="true">background-color: #333
+</string>
+         </property>
          <widget class="QLabel" name="infoLabel_1">
           <property name="geometry">
            <rect>
-            <x>250</x>
+            <x>200</x>
             <y>20</y>
-            <width>231</width>
+            <width>321</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+        border-color: transparent;
+        font: bold 12pt
+}</string>
           </property>
           <property name="text">
            <string>This will stop all Insulin deliveries.</string>
@@ -292,11 +390,17 @@ QPushButton {
          <widget class="QLabel" name="infoLabel_2">
           <property name="geometry">
            <rect>
-            <x>250</x>
+            <x>260</x>
             <y>80</y>
-            <width>231</width>
+            <width>191</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+        border-color: transparent;
+        font: 11pt;
+}</string>
           </property>
           <property name="text">
            <string>Stop all deliveries now?</string>
@@ -346,6 +450,17 @@ QPushButton {
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+        border-color: transparent;
+}</string>
+             </property>
              <property name="text">
               <string>Resume Insulin Pump Alarm After:</string>
              </property>
@@ -354,35 +469,35 @@ QPushButton {
            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
             <widget class="QComboBox" name="resumeInsulinComboBox">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
               <size>
-               <width>75</width>
-               <height>0</height>
+               <width>105</width>
+               <height>25</height>
               </size>
              </property>
              <item>
               <property name="text">
-               <string>15 min</string>
+               <string>15 minutes</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>30 min</string>
+               <string>30 minutes</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>45 min</string>
+               <string>45 minutes</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>60 min</string>
+               <string>60 minutes</string>
               </property>
              </item>
             </widget>
@@ -397,17 +512,32 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>321</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
             <widget class="QPushButton" name="changeCartridgeButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Change Cartridge</string>
@@ -416,11 +546,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="fillTubingButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Fill Tubing</string>
@@ -429,11 +574,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="fillCannulaButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Fill Cannula</string>
@@ -442,11 +602,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="siteReminderButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Site Reminder</string>
@@ -466,12 +641,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QPushButton" name="backButton_6">
+            <widget class="QPushButton" name="backButton_Load">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -480,8 +664,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="loadLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>Load</string>
+              <string>LOAD</string>
              </property>
             </widget>
            </item>
@@ -500,12 +694,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
-            <widget class="QPushButton" name="backButton_7">
+            <widget class="QPushButton" name="backButton_Activity">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -514,8 +717,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="activityLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>Activity</string>
+              <string>ACTIVITY</string>
              </property>
             </widget>
            </item>
@@ -527,17 +740,32 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>321</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
             <widget class="QPushButton" name="programsOnExerciseButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Programs on Exercise</string>
@@ -546,11 +774,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="sleepButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Sleep</string>
@@ -559,11 +802,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="tempBasalRatesButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Temporary Basal Rates</string>
@@ -585,12 +843,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QPushButton" name="backButton_5">
+            <widget class="QPushButton" name="backButton_MyPump">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -599,8 +866,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="myPumpLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>My Pump</string>
+              <string>MY PUMP</string>
              </property>
             </widget>
            </item>
@@ -612,17 +889,32 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>321</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QPushButton" name="personalProfilesButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Personal Profiles</string>
@@ -631,11 +923,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="controlIQButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Control-IQ</string>
@@ -644,11 +951,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="alertsRemindersButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Alerts and Reminders</string>
@@ -657,11 +979,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="pumpInfoButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Pump Info</string>
@@ -678,30 +1015,60 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>326</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
             <widget class="QPushButton" name="startStopSensorButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
              </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: green;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
+             </property>
              <property name="text">
-              <string>Start/Stop Sensor</string>
+              <string>Start Sensor</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="calibrateCGMButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Calibrate CGM</string>
@@ -710,11 +1077,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="cgmAlertsButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>CGM Alerts</string>
@@ -723,11 +1105,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="transmitterIDButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Transmitter ID</string>
@@ -736,11 +1133,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="cgmInfoButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>CGM Info</string>
@@ -760,12 +1172,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_11">
            <item>
-            <widget class="QPushButton" name="backButton_9">
+            <widget class="QPushButton" name="backButton_MyCGM">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -774,8 +1195,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="myCGMLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>My CGM</string>
+              <string>MY CGM</string>
              </property>
             </widget>
            </item>
@@ -789,17 +1220,32 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>326</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
             <widget class="QPushButton" name="displaySettingsButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Display Settings</string>
@@ -808,11 +1254,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="bluetoothSettingsButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Bluetooth Settings</string>
@@ -821,11 +1282,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="timeDateButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Time and Date</string>
@@ -834,11 +1310,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="soundVolumeButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Sound Volume</string>
@@ -847,11 +1338,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="securityPINButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>60</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Security PIN</string>
@@ -871,12 +1377,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <widget class="QPushButton" name="backButton_10">
+            <widget class="QPushButton" name="backButton_DeviceSettings">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -885,8 +1400,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="deviceSettingsLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>Device Settings</string>
+              <string>DEVICE SETTINGS</string>
              </property>
             </widget>
            </item>
@@ -905,12 +1430,21 @@ QPushButton {
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <widget class="QPushButton" name="backButton_11">
+            <widget class="QPushButton" name="backButton_History">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>&lt;=</string>
@@ -919,8 +1453,18 @@ QPushButton {
            </item>
            <item>
             <widget class="QLabel" name="historyLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
              <property name="text">
-              <string>History</string>
+              <string>HISTORY</string>
              </property>
             </widget>
            </item>
@@ -932,17 +1476,32 @@ QPushButton {
             <x>10</x>
             <y>50</y>
             <width>711</width>
-            <height>328</height>
+            <height>321</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_10">
            <item>
             <widget class="QPushButton" name="pumpHistoryButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Pump History</string>
@@ -951,11 +1510,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="bolusHistoryButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Bolus History</string>
@@ -964,11 +1538,26 @@ QPushButton {
            </item>
            <item>
             <widget class="QPushButton" name="controlIQHistoryButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>75</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
              </property>
              <property name="text">
               <string>Control-IQ History</string>
@@ -978,8 +1567,179 @@ QPushButton {
           </layout>
          </widget>
         </widget>
-        <widget class="QWidget" name="Page4">
-         <layout class="QVBoxLayout" name="verticalLayout_3"/>
+        <widget class="QWidget" name="fillTubingPage">
+         <widget class="QWidget" name="horizontalLayoutWidget_8">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>711</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QLabel" name="fillTubingHeaderLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
+             <property name="text">
+              <string>Fill Tubing</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="gridLayoutWidget_4">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>711</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="2" column="0" colspan="2">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>200</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="startFillInsulinButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>101</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    font: bold 12pt;
+    background-color: #333;
+    color: green;
+    border-radius: 10px;
+    border: 2px solid #555;
+}</string>
+             </property>
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="fillTubingLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>114</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+    qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
+             <property name="text">
+              <string>Fill Tubing</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="amountFilledLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>114</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
+             <property name="text">
+              <string>Amount Filled</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="insulinAmountLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>114</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    font: bold 12pt;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid #555;
+        qproperty-alignment: 'AlignCenter';
+}</string>
+             </property>
+             <property name="text">
+              <string>units</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
       </item>
