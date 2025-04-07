@@ -21,7 +21,6 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 
-
 namespace Ui {
 class personalProfiles;
 }

@@ -13,7 +13,9 @@ SOURCES += \
     mainwindow.cpp \
     optionsmenu.cpp \
     personalprofiles.cpp \
-    timedSettingsUtils.cpp \
+    timedSettingsUtils.cpp \    
+    batterymanager.cpp \
+    config.cpp \
     timedsettingsprofiles.cpp
 
 HEADERS += \
@@ -24,6 +26,15 @@ HEADERS += \
     timeProfile.h \
     timedSettingsUtils.h \
     timedsettingsprofiles.h
+    profile.cpp
+
+HEADERS += \
+    batterymanager.h \
+    config.h \
+    mainwindow.h \
+    optionsmenu.h \
+    personalprofiles.h \
+    profile.h
 
 FORMS += \
     mainwindow.ui \
@@ -37,4 +48,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    ui_icons/resources.qrc
+    ui_icons/resources.qrc 
+
