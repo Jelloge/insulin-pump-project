@@ -21,13 +21,21 @@ personalProfiles::personalProfiles(QWidget *parent) :
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Battery function
+    // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
 
-    // Clock
+    // Clock update hookup
     connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
         ui->timeDateLabel->setText(time);
     });
+
+    // Power / Battery buttons
+    connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
+    connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
 
     // Connecting letter and number buttons
     connect(ui->aButton, &QPushButton::clicked, this, &personalProfiles::on_virtualKeyPressed);

@@ -24,10 +24,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void turnOff();
-    void turnOn();
-
-// feel free to modify or add more
+    void refreshBatteryBindings();
 
 private slots:
     void on_optionsButton_clicked();

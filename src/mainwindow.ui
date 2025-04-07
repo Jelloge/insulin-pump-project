@@ -223,7 +223,7 @@
      <string>Plug in</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="turnOn">
+   <widget class="QPushButton" name="turnOnButton">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -236,7 +236,7 @@
      <string>ON</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="turnOff">
+   <widget class="QPushButton" name="turnOffButton">
     <property name="geometry">
      <rect>
       <x>740</x>

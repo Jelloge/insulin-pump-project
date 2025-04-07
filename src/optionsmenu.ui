@@ -1012,7 +1012,7 @@ QPushButton {
      <string>Unplug</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="turnOn">
+   <widget class="QPushButton" name="turnOnButton">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -1025,7 +1025,7 @@ QPushButton {
      <string>ON</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="turnOff">
+   <widget class="QPushButton" name="turnOffButton">
     <property name="geometry">
      <rect>
       <x>720</x>

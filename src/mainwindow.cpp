@@ -17,14 +17,21 @@ MainWindow::MainWindow(QWidget *parent)
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
     BatteryManager::instance()->plugIn();
     BatteryManager::instance()->unplug();
+    BatteryManager::instance()->turnOff();
 
     // Clock update hookup
     connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
         ui->timeDateLabel->setText(time);
     });
 
+    // Power / Battery buttons
     connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
     connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
+    connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+
     connect(ui->bolusButton, &QPushButton::clicked, this, [=]() {
         QMessageBox::information(this, "Bolus", "Bolus button clicked. Future feature");
     });
@@ -45,3 +52,8 @@ void MainWindow::on_optionsButton_clicked()
     optionsMenu *options = new optionsMenu(this);
     options->show();
 }
+
+void MainWindow::refreshBatteryBindings() {
+    BatteryManager::instance()->updateLabel(ui->batteryLabel);
+}
+

@@ -13,14 +13,21 @@ optionsMenu::optionsMenu(QWidget *parent) :
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Battery function
+    // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
 
-    // Clock
+    // Clock update hookup
     connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
         ui->timeDateLabel->setText(time);
     });
 
+    // Power / Battery buttons
+    connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
+    connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
 }
 
 optionsMenu::~optionsMenu()
@@ -43,9 +50,14 @@ void optionsMenu::on_activityButton_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+// Fixes issue where Tandom Logo Button breaks battery and power buttons !
 void optionsMenu::on_tandemLogoButton_clicked()
 {
     if (QWidget *parentWindow = this->parentWidget()) {
+        if (auto *main = qobject_cast<MainWindow *>(parentWindow)) {
+            main->refreshBatteryBindings();  // 🔁 Rebind labels
+        }
+
         this->hide();
         parentWindow->show();
     }

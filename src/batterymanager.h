@@ -11,24 +11,26 @@ class BatteryManager : public QObject {
 public:
     static BatteryManager* instance(); // Singleton accessor
 
+    void updateLabel(QLabel *newBatteryLabel, QLabel *newChargingIcon = nullptr);
     void start();
+    void startDraining();
     void stop();
+    void stopAll();
+    void turnOn();
+    void turnOff();
     void plugIn();
     void unplug();
-    void startDraining();
-    void stopAll();
-
-    void updateLabel(QLabel *newBatteryLabel, QLabel *newChargingIcon = nullptr);
 
 signals:
     void batteryDepleted();
 
 private:
-    explicit BatteryManager(QObject *parent = nullptr); // Private constructor
+    explicit BatteryManager(QObject *parent = nullptr);
 
     int batteryLevel = 100;
     bool isCharging = false;
     bool isOn = false;
+    bool lowBatteryWarningShown;
 
     QLabel *batteryLabel = nullptr;
     QLabel *chargingIcon = nullptr;

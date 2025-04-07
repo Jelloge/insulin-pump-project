@@ -20,6 +20,8 @@ class Config : public QObject {
 public:
     static Config* instance();  // singleton
     QString getFormattedDateTime() const;
+    void pauseClock();
+    void resumeClock();
 
 signals:
     void clockUpdated(const QString& formattedTime);
