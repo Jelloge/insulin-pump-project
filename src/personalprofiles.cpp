@@ -1,9 +1,14 @@
 #include "personalprofiles.h"
 #include "ui_personalprofiles.h"
+#include "batterymanager.h"
+#include "mainwindow.h"
+#include "config.h"
+
 
 personalProfiles::personalProfiles(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::personalProfiles),
+
     newProfile(new profile()),
     newTimeProfile(new timeProfile())
 {
@@ -61,6 +66,22 @@ personalProfiles::personalProfiles(QWidget *parent) :
     ui->checkButton_TimedBolus->setText("");
     ui->checkButton_TimedBolus->setIcon(checkIcon);
     ui->checkButton_TimedBolus->setIconSize(QSize(25, 25));
+
+    // Set the battery label
+    BatteryManager::instance()->updateLabel(ui->batteryLabel);
+
+    // Clock update hookup
+    connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
+        ui->timeDateLabel->setText(time);
+    });
+
+    // Power / Battery buttons
+    connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
+    connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
 
     // Connecting letter and number buttons
     connect(ui->aButton, &QPushButton::clicked, this, &personalProfiles::on_virtualKeyPressed);
@@ -239,7 +260,6 @@ void personalProfiles::setProfileSetUpPage()
 {
     ui->stackedWidget->setCurrentIndex(2);
 }
-
 
 void personalProfiles::on_timedSettingsButton_clicked()
 {
