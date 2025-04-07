@@ -1,17 +1,6 @@
 #include "timedsettingsprofiles.h"
 #include "ui_timedsettingsprofiles.h"
-#include "timedSettingsUtils.h"
 
-#include <QFile>
-#include <QDir>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QMessageBox>
-#include <QTextStream>
-#include <QInputDialog>
-#include <QFileInfo>
-#include <QStandardPaths>
 
 timedSettingsProfiles::timedSettingsProfiles(QWidget *parent) :
     QWidget(parent),

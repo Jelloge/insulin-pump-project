@@ -3,6 +3,9 @@
 
 #include <QString>
 #include <QJsonArray>
+#include <QStandardPaths>
+#include <QFile>
+#include <QJsonDocument>
 
 QJsonArray loadTimedSettings();
 bool saveTimedSettings(const QJsonArray &array);

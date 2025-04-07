@@ -2,11 +2,21 @@
 #define TIMEDSETTINGSPROFILES_H
 
 #include "timeProfile.h"
+#include "timedSettingsUtils.h"
 
 #include <QWidget>
 #include <QJsonObject>
 #include <QListWidget>
 #include <QPixmap>
+#include <QFile>
+#include <QDir>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QMessageBox>
+#include <QTextStream>
+#include <QInputDialog>
+#include <QFileInfo>
+#include <QStandardPaths>
 
 namespace Ui {
 class timedSettingsProfiles;

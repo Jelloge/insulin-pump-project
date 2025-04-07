@@ -1,9 +1,4 @@
 #include "batterymanager.h"
-#include <QMetaObject>
-#include <QTimer>
-#include <QDebug>
-#include <QPixmap>
-#include <QMessageBox>
 #include "config.h" // To pause/resume clock
 
 BatteryManager* BatteryManager::instance() {

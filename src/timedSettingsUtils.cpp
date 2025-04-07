@@ -1,10 +1,5 @@
 #include "timedSettingsUtils.h"
 
-#include <QStandardPaths>
-#include <QFile>
-#include <QJsonDocument>
-
-
 QString getTimedSettingsFilePath() {
     return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/timedSettings.json";
 }

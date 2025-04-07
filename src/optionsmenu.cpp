@@ -1,9 +1,6 @@
 #include "optionsmenu.h"
 #include "ui_optionsmenu.h"
 
-#include "batterymanager.h"
-#include "config.h"
-
 optionsMenu::optionsMenu(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::optionsMenu)

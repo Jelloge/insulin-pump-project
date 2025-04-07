@@ -3,6 +3,8 @@
 
 #include "personalprofiles.h"
 #include "timedsettingsprofiles.h"
+#include "batterymanager.h"
+#include "config.h"
 
 #include <QWidget>
 #include <QPixmap>

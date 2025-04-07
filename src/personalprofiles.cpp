@@ -4,7 +4,6 @@
 #include "mainwindow.h"
 #include "config.h"
 
-
 personalProfiles::personalProfiles(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::personalProfiles),

@@ -4,6 +4,11 @@
 #include <QObject>
 #include <QTimer>
 #include <QLabel>
+#include <QMetaObject>
+#include <QTimer>
+#include <QDebug>
+#include <QPixmap>
+#include <QMessageBox>
 
 class BatteryManager : public QObject {
     Q_OBJECT
