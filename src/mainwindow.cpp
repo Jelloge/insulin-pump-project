@@ -7,6 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    options = new optionsMenu(this);
+    options->hide();
+
+    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +22,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_optionsButton_clicked()
 {
-    optionsMenu *options = new optionsMenu(this);
     options->show();
 }
 

@@ -13,20 +13,28 @@ SOURCES += \
     mainwindow.cpp \
     optionsmenu.cpp \
     personalprofiles.cpp \
-    profile.cpp
+    timedSettingsUtils.cpp \
+    timedsettingsprofiles.cpp
 
 HEADERS += \
     mainwindow.h \
     optionsmenu.h \
     personalprofiles.h \
-    profile.h
+    profile.h \
+    timeProfile.h \
+    timedSettingsUtils.h \
+    timedsettingsprofiles.h
 
 FORMS += \
     mainwindow.ui \
     optionsmenu.ui \
-    personalprofiles.ui
+    personalprofiles.ui \
+    timedsettingsprofiles.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    ui_icons/resources.qrc
