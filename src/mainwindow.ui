@@ -224,6 +224,19 @@
       <string/>
      </property>
     </widget>
+    <widget class="QPushButton" name="timeRangeButton">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>90</y>
+       <width>83</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3h</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="ChargeButton">
     <property name="geometry">
