@@ -11,7 +11,6 @@ BatteryManager* BatteryManager::instance() {
     return _instance;
 }
 
-// Constructor
 BatteryManager::BatteryManager(QObject *parent)
     : QObject(parent),
       batteryLevel(100),
@@ -27,30 +26,38 @@ BatteryManager::BatteryManager(QObject *parent)
     connect(batteryChargeTimer, &QTimer::timeout, this, &BatteryManager::chargeBatteryStep);
 }
 
-// UI Updater
+// Called from each page to bind the current UI's battery widgets
 void BatteryManager::updateLabel(QLabel *newBatteryLabel, QLabel *newChargingIcon) {
     batteryLabel = newBatteryLabel;
     chargingIcon = newChargingIcon;
 
-    if (batteryLabel)
-        batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
+    updateUI();
+
     if (chargingIcon)
-        chargingIcon->clear();
+        chargingIcon->clear();  // Reset icon
 }
 
-// Control Methods
+// Start full battery monitoring
 void BatteryManager::start() {
     isOn = true;
     updateUI();
     batteryDrainTimer->start(3000);
 }
 
+// Used on each page switch to make sure the draining continues
 void BatteryManager::startDraining() {
     isOn = true;
+
+    if (!batteryLabel) {
+        qDebug() << "[BatteryManager] No battery label set!";
+        return;
+    }
+
     if (!batteryDrainTimer->isActive())
         batteryDrainTimer->start(3000);
 }
 
+// Stops both timers and charging icon
 void BatteryManager::stop() {
     isOn = false;
     batteryDrainTimer->stop();
@@ -58,6 +65,7 @@ void BatteryManager::stop() {
     if (chargingIcon) chargingIcon->clear();
 }
 
+// Kill all operations
 void BatteryManager::stopAll() {
     isOn = false;
     isCharging = false;
@@ -66,24 +74,27 @@ void BatteryManager::stopAll() {
     if (chargingIcon) chargingIcon->clear();
 }
 
-// ---- Plug/Unplug ---- //
+// Starts charging the battery
 void BatteryManager::plugIn() {
     if (isCharging || batteryLevel >= 100) return;
 
     isCharging = true;
+
     if (chargingIcon)
-        chargingIcon->setPixmap(QPixmap(":/icons/charging.png").scaled(20, 20, Qt::KeepAspectRatio));
+        chargingIcon->setPixmap(QPixmap(":/ui_icons/charging.jpg").scaled(20, 20, Qt::KeepAspectRatio));
+
     if (!batteryChargeTimer->isActive())
         batteryChargeTimer->start(1000);
 }
 
+// Stops charging
 void BatteryManager::unplug() {
     isCharging = false;
     if (chargingIcon) chargingIcon->clear();
     batteryChargeTimer->stop();
 }
 
-// Charging and Draining Logic
+// Battery goes down 1% every 3s if not charging
 void BatteryManager::drainBattery() {
     if (!isCharging && isOn && batteryLevel > 0) {
         batteryLevel--;
@@ -97,6 +108,24 @@ void BatteryManager::drainBattery() {
     }
 }
 
+// Turn on device
+void BatteryManager::turnOn() {
+    if (isOn) return;
+    isOn = true;
+    startDraining();
+    qDebug() << "Device turned ON";
+}
+
+// Turn off device
+void BatteryManager::turnOff() {
+    if (!isOn) return;
+    isOn = false;
+    stopAll();
+    qDebug() << "Device turned OFF";
+}
+
+
+// Battery goes up 1% every 1s when charging
 void BatteryManager::chargeBatteryStep() {
     if (isCharging && batteryLevel < 100) {
         batteryLevel++;
@@ -106,7 +135,7 @@ void BatteryManager::chargeBatteryStep() {
     }
 }
 
-// ---- UI Display ---- //
+// Updates UI text, color, and style
 void BatteryManager::updateUI() {
     if (!batteryLabel) return;
 

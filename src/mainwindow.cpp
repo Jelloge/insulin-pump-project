@@ -13,32 +13,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Start battery draining
-    turnOn();
-
-    // Main battery function
+    // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
+    BatteryManager::instance()->plugIn();
+    BatteryManager::instance()->unplug();
 
-    // Handle battery depletion (e.g., turn off UI)
-    connect(BatteryManager::instance(), &BatteryManager::batteryDepleted, this, &MainWindow::turnOff);
-
-    // Clock
+    // Clock update hookup
     connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
         ui->timeDateLabel->setText(time);
     });
 
-    // Charge button
     connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
-
-    // Unplug button
     connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
-
-    // Bolus button (placeholder)
     connect(ui->bolusButton, &QPushButton::clicked, this, [=]() {
         QMessageBox::information(this, "Bolus", "Bolus button clicked. Future feature");
     });
 
-    // Placeholders
     ui->glucoseLabel->setText("5.0 mmol/L");
     ui->iobLabel->setText("IOB: 1.2U");
 }
@@ -47,18 +37,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete config;
-}
-
-// Plugging/Unplugging
-
-void MainWindow::turnOff() {
-    isOn = false;
-    BatteryManager::instance()->stopAll();
-}
-
-void MainWindow::turnOn() {
-    isOn = true;
-    BatteryManager::instance()->startDraining();
 }
 
 // Open Options Menu
