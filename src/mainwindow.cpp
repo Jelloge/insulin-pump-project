@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "optionsmenu.h"
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
+#include "batterymanager.h"
+#include "config.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,44 +13,29 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Initialize Battery Manager
-    batteryManager = new BatteryManager(this, ui->batteryLabel);
+    // Set the battery label
+    BatteryManager::instance()->updateLabel(ui->batteryLabel);
+    BatteryManager::instance()->plugIn();
+    BatteryManager::instance()->unplug();
+    BatteryManager::instance()->turnOff();
 
-    // 🔥 Call turnOn() to start battery drain
-    turnOn();
-
-    // automatically turn off when battery is depleted
-    connect(batteryManager, &BatteryManager::batteryDepleted, this, &MainWindow::turnOff);
-
-    // connect the OPTIONS button
-    connect(ui->optionsButton, &QPushButton::clicked, this, [=]() {
-        QMessageBox::information(this, "Options", "Options button clicked. Future feature");
+    // Clock update hookup
+    connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
+        ui->timeDateLabel->setText(time);
     });
 
-    // charge button
-    connect(ui->ChargeButton, &QPushButton::clicked, batteryManager, &BatteryManager::plugIn);
+    // Power / Battery buttons
+    connect(ui->ChargeButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
+    connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
 
-    // unplug button
-    connect(ui->UnplugButton, &QPushButton::clicked, batteryManager, &BatteryManager::unplug);
-
-    // bolus button
     connect(ui->bolusButton, &QPushButton::clicked, this, [=]() {
         QMessageBox::information(this, "Bolus", "Bolus button clicked. Future feature");
     });
 
-    // home (Tandem logo) button
-    connect(ui->tandemLogoButton, &QPushButton::clicked, this, [=]() {
-        QMessageBox::information(this, "Home", "Already at the Home screen!");
-    });
-
-    // clock updater
-    QTimer *clockTimer = new QTimer(this);
-    connect(clockTimer, &QTimer::timeout, this, [=]() {
-        ui->timeDateLabel->setText(QDateTime::currentDateTime().toString("hh:mm:ss  |  dd MMM"));
-    });
-    clockTimer->start(1000);
-
-    // placeholder values
     ui->glucoseLabel->setText("5.0 mmol/L");
     ui->iobLabel->setText("IOB: 1.2U");
 }
@@ -56,38 +43,17 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete batteryManager;
     delete config;
 }
 
-// ---------- POWER MANAGEMENT ----------
-
-void MainWindow::turnOff() {
-    isOn = false;
-    batteryManager->stopAll();
+// Open Options Menu
+void MainWindow::on_optionsButton_clicked()
+{
+    optionsMenu *options = new optionsMenu(this);
+    options->show();
 }
 
-void MainWindow::turnOn() {
-    isOn = true;
-    batteryManager->startDraining();
+void MainWindow::refreshBatteryBindings() {
+    BatteryManager::instance()->updateLabel(ui->batteryLabel);
 }
 
-bool MainWindow::checkingPIN() {
-    return false; // placeholder
-}
-
-void MainWindow::returnHome() {
-    // placeholder
-}
-
-// ---------- FUTURE FEATURES / STUBS ---------- FEEL FREE TO MODIFY OR ADD YOUR METHODS !
-
-void MainWindow::CreateProfileClicked() {}
-void MainWindow::AddCarbsClicked() {}
-void MainWindow::AddBGClicked() {}
-void MainWindow::ConfirmBolusClicked() {}
-void MainWindow::CancelBolusEntry() {}
-void MainWindow::ConfirmBolusRejected() {}
-void MainWindow::SetDeliverySplitClicked() {}
-void MainWindow::SetDurationClicked() {}
-void MainWindow::SetDeliveryTimeClicked() {}

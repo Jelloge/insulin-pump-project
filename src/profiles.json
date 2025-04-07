@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Morning Routine",
+        "basalRate": 0.8,
+        "carbRatio": 10,
+        "correctionFactor": 50,
+        "targetGlucose": 100
+    },
+    {
+        "name": "Exercise Mode",
+        "basalRate": 0.6,
+        "carbRatio": 15,
+        "correctionFactor": 60,
+        "targetGlucose": 110
+    }
+]

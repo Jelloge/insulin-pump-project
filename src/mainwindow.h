@@ -8,7 +8,6 @@
 #include <QTextEdit>
 #include <QFont>
 #include <QString>
-
 #include "config.h"
 #include "batterymanager.h"
 
@@ -25,22 +24,10 @@ public:
     ~MainWindow();
 
 public slots:
-    void turnOff();
-    void turnOn();
-    void returnHome();
-
-// feel free to modify or add more
+    void refreshBatteryBindings();
 
 private slots:
-    void CreateProfileClicked();
-    void AddCarbsClicked();
-    void AddBGClicked();
-    void ConfirmBolusClicked();
-    void CancelBolusEntry();
-    void ConfirmBolusRejected();
-    void SetDeliverySplitClicked();
-    void SetDurationClicked();
-    void SetDeliveryTimeClicked();
+    void on_optionsButton_clicked();
 
 private:
     Ui::MainWindow *ui;
