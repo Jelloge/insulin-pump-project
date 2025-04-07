@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     options = new optionsMenu(this);
     options->hide();
 
-    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
+    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
 
     // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
