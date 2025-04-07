@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "optionsmenu.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     options = new optionsMenu(this);
     options->hide();
 
-    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
+    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
 }
 
 MainWindow::~MainWindow()

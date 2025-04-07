@@ -54,9 +54,7 @@ private slots:
     void on_cgmAlertsButton_clicked();
     void on_changeCartridgeButton_clicked();
     void on_fillTubingButton_clicked();
-
     void on_startFillInsulinButton_clicked();
-
     void on_fillCannulaButton_clicked();
 
 private:
