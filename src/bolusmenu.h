@@ -2,19 +2,19 @@
 #define BOLUSMENU_H
 
 #include "BolusInfo.h"
-#include <QMainWindow>
+#include <QWidget>
 #include "boluscalculator.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class bolusmenu; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class bolusmenu : public QWidget {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit bolusmenu(QWidget *parent = nullptr);
+    ~bolusmenu();
 
 private slots:
     void calculateBolus();  // Slot for calculating bolus
@@ -23,12 +23,13 @@ private slots:
     void cancelBolus();
     void logBolus(const BolusInfo& info);
     void deleteHistory();
+    void on_backButton_clicked();
 
-
-
+signals:
+    void returnToMainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::bolusmenu *ui;
     BolusCalculator bolusCalc;
     double totalCarbs = 0;  // Variable to accumulate total carbs
     double immediateBolus = 0;

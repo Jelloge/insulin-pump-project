@@ -1,5 +1,5 @@
 #include "bolusmenu.h"
-#include "ui_mainwindow.h"
+#include "ui_bolusmenu.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -9,29 +9,30 @@
 #include <QDateTime>
 
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+bolusmenu::bolusmenu(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::bolusmenu) {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Connect the calculate button to calculateBolus slott
-    connect(ui->calculateButton, &QPushButton::clicked, this, &MainWindow::calculateBolus);
-    connect(ui->cancelBolusButton, &QPushButton::clicked, this, &MainWindow::cancelBolus);
+    // Connect the calculate button to calculateBolus slot
+    connect(ui->calculateButton, &QPushButton::clicked, this, &bolusmenu::calculateBolus);
+    connect(ui->cancelBolusButton, &QPushButton::clicked, this, &bolusmenu::cancelBolus);
 
-    connect(ui->overrideButton, &QPushButton::clicked, this, &MainWindow::calculateBolus);
-    connect(ui->deleteHistoryButton, &QPushButton::clicked, this, &MainWindow::deleteHistory);
+    connect(ui->overrideButton, &QPushButton::clicked, this, &bolusmenu::calculateBolus);
+    connect(ui->deleteHistoryButton, &QPushButton::clicked, this, &bolusmenu::deleteHistory);
 
-    // Connect the "Add Carbs" button to the addCarbs function
-    connect(ui->addCarbButton, &QPushButton::clicked, this, &MainWindow::addCarbs);
+    // Connect the "Add Carbs" button to addCarbs function
+    connect(ui->addCarbButton, &QPushButton::clicked, this, &bolusmenu::addCarbs);
     connect(ui->goBackButton, &QPushButton::clicked, this, [this]() {
         ui->stackedWidget->setCurrentIndex(0);  // Switch back to the input page (index 0)
     });
 }
 
-MainWindow::~MainWindow() {
+bolusmenu::~bolusmenu() {
     delete ui;
 }
-void MainWindow::calculateBolus() {
+void bolusmenu::calculateBolus() {
     double carbs = totalCarbs;  // Use the accumulated totalCarbs value
     double currentBG = ui->currentBGInput->text().toDouble();
     double iob = 5;
@@ -73,7 +74,7 @@ void MainWindow::calculateBolus() {
 }
 
 
-void MainWindow::updateBolusDisplay() {
+void bolusmenu::updateBolusDisplay() {
     QString result;
     double bolusPerHour = (currentBolusInfo.durationHours > 0)
                           ? (currentBolusInfo.extendedBolus / currentBolusInfo.durationHours)
@@ -106,14 +107,14 @@ void MainWindow::updateBolusDisplay() {
 
 
 
-void MainWindow::addCarbs() {
+void bolusmenu::addCarbs() {
     double inputCarbs = ui->carbInput->text().toDouble();  // Get the value from the QLineEdit
     totalCarbs += inputCarbs;  // Add to the accumulated total
 
     // Update the QLineEdit to display the accumulated carbs
     ui->carbInput->setText(QString::number(totalCarbs, 'f', 1));  // Show 1 decimal point for clarity
 }
-void MainWindow::cancelBolus() {
+void bolusmenu::cancelBolus() {
     if (isBolusActive) {
         // Stop the extended bolus by resetting values
         extendedBolus = 0;
@@ -127,7 +128,7 @@ void MainWindow::cancelBolus() {
     ui->stackedWidget->setCurrentIndex(1); // Since ResultPage is at index 1
 
 }
-void MainWindow::logBolus(const BolusInfo& info) {
+void bolusmenu::logBolus(const BolusInfo& info) {
     // Specify the full path to save the file
     QString filename = "/home/student/ESample/bolus_log.json";
     QFile file(filename);
@@ -157,7 +158,7 @@ void MainWindow::logBolus(const BolusInfo& info) {
     }
 }
 
-void MainWindow::deleteHistory() {
+void bolusmenu::deleteHistory() {
     QString filename = "/home/student/ESample/bolus_log.json";  // Path to your log file
     QFile file(filename);
 
@@ -172,10 +173,7 @@ void MainWindow::deleteHistory() {
     }
 }
 
-
-
-
-
-
-
-
+void bolusmenu::on_backButton_clicked() {
+    emit returnToMainWindow();
+    this->close();
+}

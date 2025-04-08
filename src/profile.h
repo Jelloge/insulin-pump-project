@@ -7,6 +7,7 @@
 class profile {
 
 public:
+    profile();
     QString     profileName;
     double      basalRate = 0.0;
     int         correctionFactor = 0;

@@ -96,8 +96,6 @@ optionsMenu::optionsMenu(QWidget *parent) :
     connect(ui->UnplugButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
     connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
     connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
-    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
-    connect(ui->UnplugButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::unplug);
 }
 
 optionsMenu::~optionsMenu()
