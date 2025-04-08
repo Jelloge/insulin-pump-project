@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/ui_icons">
-        <file>back.png</file>
-        <file>close.png</file>
-        <file>check.png</file>
-        <file>plus.png</file>
-    </qresource>
-</RCC>
