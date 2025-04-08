@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Connect the calculate button to calculateBolus slot
+    // Connect the calculate button to calculateBolus slott
     connect(ui->calculateButton, &QPushButton::clicked, this, &MainWindow::calculateBolus);
     connect(ui->cancelBolusButton, &QPushButton::clicked, this, &MainWindow::cancelBolus);
 
