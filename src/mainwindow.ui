@@ -29,7 +29,7 @@
     <property name="styleSheet">
      <string notr="true">background-color: #2A2A2A; border: 1px solid #555; border-radius: 5px;</string>
     </property>
-    <widget class="QLabel" name="graphPlaceholderLabel">
+    <widget class="QChartView" name="cgmGraphView">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -42,7 +42,7 @@
       <string notr="true">color: #AAAAAA; font-style: italic; font-size: 10pt;</string>
      </property>
      <property name="text">
-      <string>CGM Graph Placeholder</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -211,6 +211,19 @@
       </item>
      </layout>
     </widget>
+    <widget class="QPushButton" name="timeRangeButton">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>90</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3h</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="UnplugButton">
     <property name="geometry">
@@ -277,6 +290,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QLabel</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

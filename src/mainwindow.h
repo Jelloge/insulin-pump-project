@@ -4,6 +4,7 @@
 #include "optionsmenu.h"
 #include "config.h"
 #include "batterymanager.h"
+#include "glucosemonitoring.h"
 
 #include <QMainWindow>
 #include <QtConcurrent/QtConcurrent>
@@ -36,6 +37,7 @@ private:
     optionsMenu *options = nullptr;
     BatteryManager *batteryManager;
     Config *config;
+    GlucoseMonitoring *glucoseMonitoring;
     
     bool isOn;
     bool existPIN;

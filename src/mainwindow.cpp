@@ -15,6 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
     options = new optionsMenu(this);
     options->hide();
 
+    //Initialize Glucose Monitoring
+    glucoseMonitoring = new GlucoseMonitoring(this, ui->cgmGraphView, ui->glucoseLabel, ui->timeRangeButton);
+    connect(ui->timeRangeButton, &QPushButton::clicked, glucoseMonitoring, &GlucoseMonitoring::cycleTimeRange);
+    glucoseMonitoring->start();
+
     connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
 
     // Set the battery label
