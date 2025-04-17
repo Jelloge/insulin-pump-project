@@ -4,6 +4,8 @@
 #include "optionsmenu.h"
 #include "config.h"
 #include "batterymanager.h"
+#include "glucosemonitoring.h"
+#include "bolusmenu.h"
 
 #include <QMainWindow>
 #include <QtConcurrent/QtConcurrent>
@@ -33,12 +35,15 @@ public slots:
 
 private slots:
     void on_optionsButton_clicked();
+    void on_bolusButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     optionsMenu *options = nullptr;
+    bolusmenu *bolusPage = nullptr;
     BatteryManager *batteryManager;
     Config *config;
+    GlucoseMonitoring *glucoseMonitoring;
     
     bool isOn;
     bool existPIN;
