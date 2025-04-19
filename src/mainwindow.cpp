@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(options, &optionsMenu::controlIQStatusUpdated, this, &MainWindow::updateControlIQStatusIcon);
     connect(options, &optionsMenu::basalDeliveryStatusUpdated, this, &MainWindow::updateBasalDeliveryStatusIcon);
 
+    // Initialize Bolus Page
     bolusPage = new bolusmenu(this);
     bolusPage->hide();
 
@@ -86,6 +87,7 @@ void MainWindow::refreshBatteryBindings() {
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
 }
 
+// Update Control-IQQ Icons
 void MainWindow::updateControlIQStatusIcon(bool visible) {
     ui->controlIQStatusIcon->setVisible(visible);
 }

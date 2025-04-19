@@ -647,7 +647,7 @@ void personalProfiles::on_backButton_BolusSettings_clicked()
     ui->stackedWidget->setCurrentIndex(2);
 }
 
-
+// Activate, Edit, Duplicate, Delete Profile
 void personalProfiles::on_profileListWidget_itemClicked(QListWidgetItem *item)
 {
     if (!item) return;

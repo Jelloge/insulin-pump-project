@@ -48,6 +48,10 @@ optionsMenu::optionsMenu(QWidget *parent) :
     ui->backButton_ControlIQ->setIcon(backIcon);
     ui->backButton_ControlIQ->setIconSize(QSize(55, 55));
 
+    ui->backButton_TempBasalRate->setText("");
+    ui->backButton_TempBasalRate->setIcon(backIcon);
+    ui->backButton_TempBasalRate->setIconSize(QSize(55, 55));
+
     // Close Button
     QPixmap xPixmap(":/ui_icons/close.png");
     QIcon xIcon(xPixmap);
@@ -67,6 +71,10 @@ optionsMenu::optionsMenu(QWidget *parent) :
     ui->checkButton_ControlIQ->setText("");
     ui->checkButton_ControlIQ->setIcon(checkIcon);
     ui->checkButton_ControlIQ->setIconSize(QSize(25, 25));
+
+    ui->checkButton_TempBasalRate->setText("");
+    ui->checkButton_TempBasalRate->setIcon(checkIcon);
+    ui->checkButton_TempBasalRate->setIconSize(QSize(25, 25));
 
     profilesPage = new personalProfiles(this);
     timeProfilesPage = new timedSettingsProfiles(this);
@@ -152,6 +160,7 @@ void optionsMenu::on_loadButton_clicked()
     updateReminderButtonLabel();
 }
 
+// Change Cartridge
 void optionsMenu::on_changeCartridgeButton_clicked()
 {
     QMessageBox::StandardButton stopReply = QMessageBox::question(
@@ -238,6 +247,7 @@ void optionsMenu::on_changeCartridgeButton_clicked()
     });
 }
 
+// Fill Tubing
 void optionsMenu::on_fillTubingButton_clicked()
 {
     amountFilled = 0;
@@ -336,6 +346,7 @@ void optionsMenu::on_startFillInsulinButton_clicked()
     }
 }
 
+// Fill Cannula
 void optionsMenu::on_fillCannulaButton_clicked()
 {
     QMessageBox::StandardButton stopReply = QMessageBox::question(
@@ -403,6 +414,7 @@ void optionsMenu::on_fillCannulaButton_clicked()
     });
 }
 
+// Site Reminder
 void optionsMenu::updateReminderButtonLabel() {
     QString state = Config::siteReminderEnabled ? "ON" : "OFF";
     ui->siteReminderButton->setText(QString("Site Reminder: %1").arg(state));
@@ -510,12 +522,136 @@ void optionsMenu::on_activityButton_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+// Programs On Exercise
+void optionsMenu::on_programsOnExerciseButton_clicked()
+{
+    //Do Somethhing
+}
+
+// Sleep
+void optionsMenu::on_sleepButton_clicked()
+{
+    //Do Something
+}
+
+// Temp Basal Rate
+void optionsMenu::on_tempBasalRatesButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(11);
+    ui->tempRateButton->setEnabled(Config::tempBasalRateEnabled);
+    ui->durationButton->setEnabled(Config::tempBasalRateEnabled);
+}
+
+void optionsMenu::on_tempBasalRateToggleButton_clicked()
+{
+    if (Config::controlIQEnabled) {
+        QMessageBox::warning(this, "Not Allowed", "Please disable Control-IQ before enabling Temporary Basal Rate.");
+        return;
+    }
+
+    Config::tempBasalRateEnabled = !Config::tempBasalRateEnabled;
+
+    ui->tempBasalRateToggleButton->setText(Config::tempBasalRateEnabled ? "Temporary Basal Rate: ON" : "Temporary Basal Rate: OFF");
+    ui->tempBasalRateToggleButton->setStyleSheet(Config::tempBasalRateEnabled
+        ? "font: bold 12pt; background-color: #333; color: green; border-radius: 10px; border: 2px solid #555;"
+        : "font: bold 12pt; background-color: #333; color: red; border-radius: 10px; border: 2px solid #555;");
+
+    ui->tempRateButton->setEnabled(Config::tempBasalRateEnabled);
+    ui->durationButton->setEnabled(Config::tempBasalRateEnabled);
+}
+
+void optionsMenu::on_tempRateButton_clicked()
+{
+    bool ok;
+
+    int rate = QInputDialog::getInt(
+        this,
+        "Set Temporary Basal Rate",
+        "Enter desired rate percentage (0 - 250%):",
+        100, 0, 250, 1, &ok);
+    if (!ok) return;
+
+    Config::instance()->setTempBasalRatePercentage(rate);
+    ui->tempRateButton->setText(QString("%1%").arg(rate));
+}
+
+void optionsMenu::on_durationButton_clicked()
+{
+    bool ok;
+    int hours = QInputDialog::getInt(this, "Set Duration", "Enter hours (0–72):", 0, 0, 72, 1, &ok);
+    if (!ok) return;
+
+    int minutes = QInputDialog::getInt(this, "Set Duration", "Enter minutes (0–59):", 15, 0, 59, 1, &ok);
+    if (!ok) return;
+
+    int totalMinutes = hours * 60 + minutes;
+
+    if (totalMinutes < 15 || totalMinutes > 72 * 60) {
+        QMessageBox::warning(this, "Invalid Duration", "Duration must be between 15 minutes and 72 hours.");
+        return;
+    }
+
+    Config::instance()->setTempBasalDuration(totalMinutes);
+    ui->durationButton->setText(QString("%1 hour(s) and %2 minute(s).").arg(hours).arg(minutes));
+}
+
+void optionsMenu::on_checkButton_TempBasalRate_clicked()
+{
+    int ratePercentage = Config::instance()->getTempBasalRatePercentage();
+    int durationMinutes = Config::instance()->getTempBasalDuration();
+
+    if (ratePercentage == -1 || durationMinutes == 0) {
+        QMessageBox::warning(this, "Missing Info", "Please enter both temporary basal rate and duration.");
+        return;
+    }
+
+    const double normalBasalRate = 1.0;
+    const double minAllowedBasalRate = 0.1;
+    const double maxAllowedBasalRate = 15.0;
+
+    double programmedRate = normalBasalRate * (ratePercentage / 100.0);
+
+    if (programmedRate < minAllowedBasalRate) {
+        QMessageBox::information(
+            this,
+            "Rate Too Low",
+            QString("The selected rate (%.2f u/hr) is below the minimum allowed.\nIt will be set to %.1f u/hr.")
+                .arg(programmedRate)
+                .arg(minAllowedBasalRate)
+        );
+        programmedRate = minAllowedBasalRate;
+    }
+
+    if (programmedRate > maxAllowedBasalRate) {
+        QMessageBox::information(
+            this,
+            "Rate Too High",
+            QString("The selected rate (%.2f u/hr) is too high.\nIt will be reduced to %.1f u/hr.")
+                .arg(programmedRate)
+                .arg(maxAllowedBasalRate)
+        );
+        programmedRate = maxAllowedBasalRate;
+    }
+
+    QMessageBox::information(
+        this,
+        "Temporary Basal Programmed",
+        QString("Temp Basal Rate set to: %1% (%2 u/hr)\nDuration: %3 min")
+            .arg(ratePercentage)
+            .arg(programmedRate)
+            .arg(durationMinutes)
+    );
+
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
 // My Pump Menu
 void optionsMenu::on_myPumpButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
 }
 
+// Personal Profiles
 void optionsMenu::on_personalProfilesButton_clicked()
 {
     profilesPage->disableProfileButtons();
@@ -523,6 +659,7 @@ void optionsMenu::on_personalProfilesButton_clicked()
     profilesPage->show();
 }
 
+// Control-IQ
 void optionsMenu::on_controlIQButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(10);
@@ -626,6 +763,7 @@ void optionsMenu::on_checkButton_ControlIQ_clicked()
     ui->stackedWidget->setCurrentIndex(4);
 }
 
+// Alerts and Reminders
 void optionsMenu::on_alertsRemindersButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(9);
@@ -845,6 +983,7 @@ void optionsMenu::on_missedMealBolusButton_clicked()
     QMessageBox::information(this, "Settings Saved", "Your missed meal bolus reminder has been saved.");
 }
 
+// Pump Infoo
 void optionsMenu::on_pumpInfoButton_clicked()
 {
     QString pumpSerial = "SN315795";
@@ -876,6 +1015,7 @@ void optionsMenu::on_myCGMButton_clicked()
     ui->calibrateCGMButton->setEnabled(false);
 }
 
+// Start Sensor
 void optionsMenu::on_startStopSensorButton_clicked()
 {
     if  (ui->startStopSensorButton->text() == "Start Sensor") {
@@ -892,6 +1032,7 @@ void optionsMenu::on_startStopSensorButton_clicked()
     }
 }
 
+// Calibrate CGM
 void optionsMenu::on_calibrateCGMButton_clicked()
 {
     bool ok = false;
@@ -917,6 +1058,7 @@ void optionsMenu::on_cgmAlertsButton_clicked()
     //Do Something
 }
 
+// Transmitter ID
 void optionsMenu::on_transmitterIDButton_clicked()
 {
     bool ok = false;
@@ -934,6 +1076,7 @@ void optionsMenu::on_transmitterIDButton_clicked()
     }
 }
 
+// CGM Info
 void optionsMenu::on_cgmInfoButton_clicked()
 {
     QString cgmName = "Dexcom G6 CGM";
@@ -964,6 +1107,7 @@ void optionsMenu::on_deviceSettingsButton_clicked()
     ui->stackedWidget->setCurrentIndex(6);
 }
 
+// Display Settingss
 void optionsMenu::on_displaySettingsButton_clicked()
 {
     bool ok = false;
@@ -979,6 +1123,7 @@ void optionsMenu::on_displaySettingsButton_clicked()
     }
 }
 
+// Sound Volume
 void optionsMenu::on_soundVolumeButton_clicked()
 {
     QComboBox *soundComboBox = new QComboBox(this);
@@ -1011,6 +1156,7 @@ void optionsMenu::on_soundVolumeButton_clicked()
     soundDialog->exec();
 }
 
+// Time & Date
 void optionsMenu::on_timeDateButton_clicked()
 {
     QDialog *settingsDialog = new QDialog(this);
@@ -1047,6 +1193,7 @@ void optionsMenu::on_timeDateButton_clicked()
     settingsDialog->exec();
 }
 
+// Bluetooth Settings
 void optionsMenu::on_bluetoothSettingsButton_clicked()
 {
     QMessageBox::StandardButton reply = QMessageBox::question(
@@ -1066,6 +1213,24 @@ void optionsMenu::on_bluetoothSettingsButton_clicked()
 void optionsMenu::on_historyButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
+}
+
+// Pump History
+void optionsMenu::on_pumpHistoryButton_clicked()
+{
+    //Do Something
+}
+
+// Bolus History
+void optionsMenu::on_bolusHistoryButton_clicked()
+{
+    //Do Something
+}
+
+// Control-IQ History
+void optionsMenu::on_controlIQHistoryButton_clicked()
+{
+    //Do Something
 }
 
 // Back Buttons
@@ -1120,124 +1285,3 @@ void optionsMenu::on_backButton_TempBasalRate_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 }
-
-
-void optionsMenu::on_tempBasalRatesButton_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(11);
-    ui->tempRateButton->setEnabled(Config::tempBasalRateEnabled);
-    ui->durationButton->setEnabled(Config::tempBasalRateEnabled);
-}
-
-void optionsMenu::on_tempBasalRateToggleButton_clicked()
-{
-    if (Config::controlIQEnabled) {
-        QMessageBox::warning(this, "Not Allowed", "Please disable Control-IQ before enabling Temporary Basal Rate.");
-        return;
-    }
-
-    Config::tempBasalRateEnabled = !Config::tempBasalRateEnabled;
-
-    ui->tempBasalRateToggleButton->setText(Config::tempBasalRateEnabled ? "Temporary Basal Rate: ON" : "Temporary Basal Rate: OFF");
-    ui->tempBasalRateToggleButton->setStyleSheet(Config::tempBasalRateEnabled
-        ? "font: bold 12pt; background-color: #333; color: green; border-radius: 10px; border: 2px solid #555;"
-        : "font: bold 12pt; background-color: #333; color: red; border-radius: 10px; border: 2px solid #555;");
-
-    ui->tempRateButton->setEnabled(Config::tempBasalRateEnabled);
-    ui->durationButton->setEnabled(Config::tempBasalRateEnabled);
-}
-
-
-void optionsMenu::on_tempRateButton_clicked()
-{
-    bool ok;
-
-    int rate = QInputDialog::getInt(
-        this,
-        "Set Temporary Basal Rate",
-        "Enter desired rate percentage (0 - 250%):",
-        100, 0, 250, 1, &ok);
-    if (!ok) return;
-
-    Config::instance()->setTempBasalRatePercentage(rate);
-    ui->tempRateButton->setText(QString("%1%").arg(rate));
-}
-
-
-void optionsMenu::on_durationButton_clicked()
-{
-    bool ok;
-    int hours = QInputDialog::getInt(this, "Set Duration", "Enter hours (0–72):", 0, 0, 72, 1, &ok);
-    if (!ok) return;
-
-    int minutes = QInputDialog::getInt(this, "Set Duration", "Enter minutes (0–59):", 15, 0, 59, 1, &ok);
-    if (!ok) return;
-
-    int totalMinutes = hours * 60 + minutes;
-
-    if (totalMinutes < 15 || totalMinutes > 72 * 60) {
-        QMessageBox::warning(this, "Invalid Duration", "Duration must be between 15 minutes and 72 hours.");
-        return;
-    }
-
-    Config::instance()->setTempBasalDuration(totalMinutes);
-    ui->durationButton->setText(QString("%1 hour(s) and %2 minute(s).").arg(hours).arg(minutes));
-}
-
-
-
-
-
-void optionsMenu::on_checkButton_TempBasalRate_clicked()
-{
-    int ratePercentage = Config::instance()->getTempBasalRatePercentage();
-    int durationMinutes = Config::instance()->getTempBasalDuration();
-
-    if (ratePercentage == -1 || durationMinutes == 0) {
-        QMessageBox::warning(this, "Missing Info", "Please enter both temporary basal rate and duration.");
-        return;
-    }
-
-    const double normalBasalRate = 1.0;
-    const double minAllowedBasalRate = 0.1;
-    const double maxAllowedBasalRate = 15.0;
-
-    double programmedRate = normalBasalRate * (ratePercentage / 100.0);
-
-    if (programmedRate < minAllowedBasalRate) {
-        QMessageBox::information(
-            this,
-            "Rate Too Low",
-            QString("The selected rate (%.2f u/hr) is below the minimum allowed.\nIt will be set to %.1f u/hr.")
-                .arg(programmedRate)
-                .arg(minAllowedBasalRate)
-        );
-        programmedRate = minAllowedBasalRate;
-    }
-
-    if (programmedRate > maxAllowedBasalRate) {
-        QMessageBox::information(
-            this,
-            "Rate Too High",
-            QString("The selected rate (%.2f u/hr) is too high.\nIt will be reduced to %.1f u/hr.")
-                .arg(programmedRate)
-                .arg(maxAllowedBasalRate)
-        );
-        programmedRate = maxAllowedBasalRate;
-    }
-
-    QMessageBox::information(
-        this,
-        "Temporary Basal Programmed",
-        QString("Temp Basal Rate set to: %1% (%2 u/hr)\nDuration: %3 min")
-            .arg(ratePercentage)
-            .arg(programmedRate)
-            .arg(durationMinutes)
-    );
-
-    ui->stackedWidget->setCurrentIndex(3);
-}
-
-
-
-

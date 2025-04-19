@@ -25,17 +25,19 @@ public:
     void pauseClock();
     void resumeClock();
 
+    // Site Reminder
     static int siteReminderDays;
     static QString siteReminderTime;
     static bool siteReminderEnabled;
 
+    // Temp Basal Rate
     static bool tempBasalRateEnabled;
     void setTempBasalRatePercentage(int percentage);
     int getTempBasalRatePercentage() const;
     void setTempBasalDuration(int minutes);
     int getTempBasalDuration() const;
 
-
+    // Control-IQ
     static bool controlIQEnabled;
     void setWeight(double w, const QString &unit);
     double getWeight() const;
@@ -44,6 +46,7 @@ public:
     void setTotalDailyInsulin(double val);
     double getTotalDailyInsulin() const;
 
+    // Alerts and Reminders
     static int lowBGThreshold;
     static int lowBGRepeatDelay;
     static int highBGThreshold;

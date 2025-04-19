@@ -1,7 +1,6 @@
 #include "timedsettingsprofiles.h"
 #include "ui_timedsettingsprofiles.h"
 
-
 timedSettingsProfiles::timedSettingsProfiles(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::timedSettingsProfiles),

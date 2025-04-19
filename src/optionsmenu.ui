@@ -134,7 +134,7 @@ QPushButton {
          </size>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>11</number>
         </property>
         <widget class="QWidget" name="mainMenuPage">
          <widget class="QScrollArea" name="scrollArea">
