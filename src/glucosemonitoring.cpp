@@ -1,8 +1,4 @@
 #include "glucosemonitoring.h"
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <QTime>
 
 GlucoseMonitoring::GlucoseMonitoring(QObject *parent, QChartView *graphView, QLabel *glucoseLabel, QPushButton *timeRangeButton)
     : QObject(parent), cgmGraphViewUI(graphView), glucoseLabel(glucoseLabel), timeRangeButton(timeRangeButton) {
@@ -432,3 +428,5 @@ void GlucoseMonitoring::saveToJson(const QString &filename) {
         qDebug() << "Save failed!" << file.errorString();
     }
 }
+
+

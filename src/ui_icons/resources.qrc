@@ -4,5 +4,7 @@
         <file>close.png</file>
         <file>check.png</file>
         <file>plus.png</file>
+        <file>graydiamond.png</file>
+        <file>letter-b.png</file>
     </qresource>
 </RCC>

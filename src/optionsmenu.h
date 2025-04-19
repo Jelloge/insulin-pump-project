@@ -26,6 +26,8 @@ public:
 
 signals:
     void returnToMainWindow();
+    void controlIQStatusUpdated(bool visible);
+    void basalDeliveryStatusUpdated(bool visible);
 
 private slots:
     void on_tandemLogoButton_clicked();
@@ -59,6 +61,61 @@ private slots:
     void on_startFillInsulinButton_clicked();
     void on_fillCannulaButton_clicked();
 
+    void on_siteReminderButton_clicked();
+    void updateReminderButtonLabel();
+
+    void on_lowBGToggleButton_clicked();
+
+    void on_alertsRemindersButton_clicked();
+
+    void on_lowBGButton_clicked();
+
+    void on_highBGToggleButton_clicked();
+
+    void on_highBGButton_clicked();
+
+    void on_afterBolusBGToggleButton_clicked();
+
+    void on_missedMealToggleButton_clicked();
+
+    void on_afterBolusBGButton_clicked();
+
+    void on_missedMealBolusButton_clicked();
+
+    void on_backButton_AlertsReminders_clicked();
+
+    void on_displaySettingsButton_clicked();
+
+    void on_soundVolumeButton_clicked();
+
+    void on_timeDateButton_clicked();
+
+    void on_bluetoothSettingsButton_clicked();
+
+    void on_controlIQToggleButton_clicked();
+
+    void on_controlIQButton_clicked();
+
+    void on_weightButton_clicked();
+
+    void on_totalDailyInsulinButton_clicked();
+
+    void on_backButton_ControlIQ_clicked();
+
+    void on_checkButton_ControlIQ_clicked();
+
+    void on_tempBasalRateToggleButton_clicked();
+
+    void on_tempRateButton_clicked();
+
+    void on_durationButton_clicked();
+
+    void on_backButton_TempBasalRate_clicked();
+
+    void on_checkButton_TempBasalRate_clicked();
+
+    void on_tempBasalRatesButton_clicked();
+
 private:
     Ui::optionsMenu *ui;
     personalProfiles *profilesPage = nullptr;
@@ -66,7 +123,13 @@ private:
 
     QTimer *fillTimer = nullptr;
     double amountFilled = 0.0;
+
     bool isFilling = false;
+    bool lowBGAlertEnabled = false;
+    bool highBGAlertEnabled = false;
+    bool afterBolusBGAlertEnabled = false;
+    bool missedMealAlertEnabled = false;
+    bool bluetoothEnabled = false;
 };
 
 #endif // OPTIONSMENU_H

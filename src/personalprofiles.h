@@ -90,7 +90,6 @@ private:
     QJsonArray loadProfiles();
     int findProfileIndex(const QString &name, const QJsonArray &profiles);
     bool saveProfiles(const QJsonArray &profiles);
-
 };
 
 #endif // PERSONALPROFILES_H

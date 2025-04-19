@@ -10,7 +10,7 @@ timedSettingsProfiles::timedSettingsProfiles(QWidget *parent) :
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Back Button
+    // Back Buttons
     QPixmap backPixmap(":/ui_icons/back.png");
     QIcon backIcon(backPixmap);
 
@@ -164,7 +164,7 @@ void timedSettingsProfiles::on_startTimeButton_clicked()
     if (ampm == "PM" && hours != 12) {
         hours += 12;
     } else if (ampm == "AM" && hours == 12) {
-        hours = 12;
+        hours = 00;
     }
 
     QTime startTime(hours, minutes);

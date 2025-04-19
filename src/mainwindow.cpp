@@ -1,10 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "bolusmenu.h"
-
-#include <QMessageBox>
-#include <QTimer>
-#include <QDateTime>
 
 // HOME PAGE
 
@@ -14,8 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Initialize Options Menu
     options = new optionsMenu(this);
     options->hide();
+    connect(options, &optionsMenu::controlIQStatusUpdated, this, &MainWindow::updateControlIQStatusIcon);
+    connect(options, &optionsMenu::basalDeliveryStatusUpdated, this, &MainWindow::updateBasalDeliveryStatusIcon);
 
     bolusPage = new bolusmenu(this);
     bolusPage->hide();
@@ -25,11 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->timeRangeButton, &QPushButton::clicked, glucoseMonitoring, &GlucoseMonitoring::cycleTimeRange);
     glucoseMonitoring->start();
 
-    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
-
     // Return to home when home button is clicked
+    connect(options, &optionsMenu::returnToMainWindow, this, &MainWindow::show);
     connect(bolusPage, &bolusmenu::returnToMainWindow, this, &MainWindow::show);
-
 
     // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
@@ -50,6 +46,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->glucoseLabel->setText("5.0 mmol/L");
     ui->iobLabel->setText("IOB: 1.2U");
+
+    // Control-IQ Icon
+    QPixmap controlIQONPixmap(":/ui_icons/graydiamond.png");
+    QIcon controlIQONIcon(controlIQONPixmap);
+
+    ui->controlIQStatusIcon->setIcon(controlIQONIcon);
+    ui->controlIQStatusIcon->setIconSize(QSize(20, 20));
+    ui->controlIQStatusIcon->setVisible(false);
+
+    // Basal Delivery Icon
+    QPixmap basalDeliveryMaintainPixmap(":/ui_icons/letter-b.png");
+    QIcon basalDeliveryIcon(basalDeliveryMaintainPixmap);
+
+    ui->basalDeliveryStatusIcon->setIcon(basalDeliveryIcon);
+    ui->basalDeliveryStatusIcon->setIconSize(QSize(20, 20));
+    ui->basalDeliveryStatusIcon->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -74,3 +86,10 @@ void MainWindow::refreshBatteryBindings() {
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
 }
 
+void MainWindow::updateControlIQStatusIcon(bool visible) {
+    ui->controlIQStatusIcon->setVisible(visible);
+}
+
+void MainWindow::updateBasalDeliveryStatusIcon(bool visible) {
+    ui->basalDeliveryStatusIcon->setVisible(visible);
+}

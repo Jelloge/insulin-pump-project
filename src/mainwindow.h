@@ -17,6 +17,8 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDateTime>
+#include <QPixmap>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,6 +34,8 @@ public:
 
 public slots:
     void refreshBatteryBindings();
+    void updateControlIQStatusIcon(bool visible);
+    void updateBasalDeliveryStatusIcon(bool visible);
 
 private slots:
     void on_optionsButton_clicked();
@@ -44,7 +48,7 @@ private:
     BatteryManager *batteryManager;
     Config *config;
     GlucoseMonitoring *glucoseMonitoring;
-    
+
     bool isOn;
     bool existPIN;
     QTimer *clock;

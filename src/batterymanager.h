@@ -1,6 +1,8 @@
 #ifndef BATTERYMANAGER_H
 #define BATTERYMANAGER_H
 
+#include "config.h" // To pause/resume clock
+
 #include <QObject>
 #include <QTimer>
 #include <QLabel>
@@ -37,8 +39,8 @@ private:
     bool isOn = false;
     bool lowBatteryWarningShown;
 
-    QLabel *batteryLabel = nullptr;
     QLabel *chargingIcon = nullptr;
+    QLabel *batteryLabel = nullptr;
     QTimer *batteryDrainTimer = nullptr;
     QTimer *batteryChargeTimer = nullptr;
 

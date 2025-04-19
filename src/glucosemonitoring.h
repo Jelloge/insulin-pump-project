@@ -1,6 +1,8 @@
 #ifndef GLUCOSEMONITORING_H
 #define GLUCOSEMONITORING_H
 
+#include "config.h"
+
 #include <QObject>
 #include <QTimer>
 #include <QDateTime>
@@ -22,6 +24,11 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QPixmap>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <QTime>
 
 QT_CHARTS_USE_NAMESPACE
 

@@ -17,7 +17,6 @@ SOURCES += \
     mainwindow.cpp \
     optionsmenu.cpp \
     personalprofiles.cpp \
-    profile.cpp \
     timedSettingsUtils.cpp \    
     batterymanager.cpp \
     config.cpp \
@@ -34,16 +33,10 @@ HEADERS += \
     profile.h \
     timeProfile.h \
     timedSettingsUtils.h \
-    timedsettingsprofiles.h
-    profile.cpp
-
-HEADERS += \
+    timedsettingsprofiles.h \
     batterymanager.h \
-    config.h \
-    mainwindow.h \
-    optionsmenu.h \
-    personalprofiles.h \
-    profile.h
+    config.h
+
 
 FORMS += \
     bolusmenu.ui \

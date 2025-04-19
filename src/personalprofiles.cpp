@@ -14,7 +14,7 @@ personalProfiles::personalProfiles(QWidget *parent) :
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
 
-    // Back Button
+    // Back Buttons
     QPixmap backPixmap(":/ui_icons/back.png");
     QIcon backIcon(backPixmap);
 
@@ -46,7 +46,7 @@ personalProfiles::personalProfiles(QWidget *parent) :
     ui->addProfileButton->setIcon(plusIcon);
     ui->addProfileButton->setIconSize(QSize(22, 22));
 
-    // Check Button
+    // Check Buttons
     QPixmap checkPixmap(":/ui_icons/check.png");
     QIcon checkIcon(checkPixmap);
 
@@ -152,6 +152,10 @@ QJsonArray personalProfiles::loadProfiles()
 {
     QString filePath = getProfilesFilePath();
     QFile file(filePath);
+
+    if (!file.exists()) {
+        return {};
+    }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(this, "Error", "Could not open profiles.json");

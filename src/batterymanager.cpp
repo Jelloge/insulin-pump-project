@@ -1,5 +1,4 @@
 #include "batterymanager.h"
-#include "config.h" // To pause/resume clock
 
 BatteryManager* BatteryManager::instance() {
     static BatteryManager* _instance = new BatteryManager();
@@ -11,9 +10,9 @@ BatteryManager::BatteryManager(QObject *parent)
       batteryLevel(100),
       isCharging(false),
       isOn(false),
-      batteryLabel(nullptr),
+      lowBatteryWarningShown(false),
       chargingIcon(nullptr),
-      lowBatteryWarningShown(false)
+      batteryLabel(nullptr)
 {
     batteryDrainTimer = new QTimer(this);
     connect(batteryDrainTimer, &QTimer::timeout, this, &BatteryManager::drainBattery);
@@ -41,7 +40,7 @@ void BatteryManager::start() {
     batteryDrainTimer->start(3000);
 }
 
-// ysed on each page switch to ensure draining continues
+// used on each page switch to ensure draining continues
 void BatteryManager::startDraining() {
     isOn = true;
 
