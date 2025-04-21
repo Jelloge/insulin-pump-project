@@ -73,8 +73,7 @@ void bolusmenu::lloadActiveProfile() {
                 profileCarbsEnabled = obj["carbsEnabled"].toBool();
 
             if (obj.contains("correctionFactor")) {
-                double Md_correction = obj["correctionFactor"].toDouble() / 18.0;
-                profileCorrectionFactor = Md_correction;
+                profileCorrectionFactor = obj["correctionFactor"].toDouble();
             }
 
             if (obj.contains("insulinDuration"))
@@ -87,8 +86,8 @@ void bolusmenu::lloadActiveProfile() {
                 profileName = obj["name"].toString();
 
             if (obj.contains("targetBG")) {
-                double target_mgdl = obj["targetBG"].toDouble();
-                profileTargetBG = target_mgdl / 18.0;
+                profileTargetBG = obj["targetBG"].toDouble();
+
             }
         }
     }
@@ -99,7 +98,7 @@ void bolusmenu::calculateBolus() {
     lloadActiveProfile();
     double carbs = totalCarbs;
     double iob = 5;
-    Almost = 0;
+    Almost = 1;
     confirmBGInput();
 
     double bolus = bolusCalc.calculateTotalBolus(carbs, iob) + Almost;
@@ -127,6 +126,7 @@ void bolusmenu::calculateBolus() {
         // Save for override
         lastDeliverNowPercent = deliverNowPercent;
 
+
         // Calculate split
         bolusCalc.splitBolus(FinalBolus, deliverNowPercent, immediateBolus, extendedBolus);
     } else {
@@ -137,7 +137,7 @@ void bolusmenu::calculateBolus() {
 
     MidDilveryCancel = true;
 
-    double durationHours = profileInsulinDuration / 3600.0;
+    double durationHours = profileInsulinDuration / 60;
     currentBolusInfo = BolusInfo(FinalBolus, immediateBolus, extendedBolus, durationHours, "");
 
     updateBolusDisplay();
@@ -146,8 +146,8 @@ void bolusmenu::calculateBolus() {
     // Clear inputs — backup values are preserved
     totalCarbs = 0;
     ui->stackedWidget->setCurrentIndex(1);
-    //ui->currentBGInput->clear();
-    //ui->carbInput->clear();
+    ui->currentBGInput->clear();
+    ui->carbInput->clear();
     ui->overrideBolusInput->clear();
 }
 
@@ -169,6 +169,8 @@ void bolusmenu::applyOverride() {
         if (ui->showExtendedCheckBox->isChecked()) {
             // Reuse lastDeliverNowPercent to calculate split
             bolusCalc.splitBolus(FinalBolus, lastDeliverNowPercent, immediateBolus, extendedBolus);
+
+
         } else {
             // No extended bolus: everything is immediate
             immediateBolus = FinalBolus;
@@ -176,18 +178,18 @@ void bolusmenu::applyOverride() {
         }
 
         MidDilveryCancel = true;
-        double durationHours = profileInsulinDuration / 3600.0;  // Convert seconds to hours
+        double durationHours = profileInsulinDuration / 60;  // Convert seconds to hours
 
-        currentBolusInfo = BolusInfo(FinalBolus, immediateBolus, extendedBolus, durationHours, overrideMsg);
+        currentBolusInfo = BolusInfo(FinalBolus, immediateBolus, extendedBolus, durationHours, "");
 
-        updateBolusDisplay();
+        OverrideupdateBolusDisplay();
         logBolus(currentBolusInfo);
 
         // Clear inputs
         totalCarbs = 0;
         ui->stackedWidget->setCurrentIndex(1);
-        //ui->currentBGInput->clear();
-        //ui->carbInput->clear();
+        ui->currentBGInput->clear();
+        ui->carbInput->clear();
         ui->overrideBolusInput->clear();
     } else {
         QMessageBox::warning(this, "Invalid Input", "Please enter a valid override bolus value.");
@@ -220,7 +222,7 @@ bool bolusmenu::checkMaxBolus(double& bolus) {
 void bolusmenu::confirmBGInput() {
      lloadActiveProfile();
     double currentBG = ui->currentBGInput->text().toDouble();  // Read from UI
-    Almost = 0;  // Reset Almost at the beginning of each confirmation
+    Almost = 1;  // Reset Almost at the beginning of each confirmation
     if (currentBG < profileTargetBG) {
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Correction Bolus",
@@ -232,6 +234,7 @@ void bolusmenu::confirmBGInput() {
             double correctionBolus = (profileTargetBG - currentBG) / profileCorrectionFactor;
             Almost = - correctionBolus;  // Subtract correction bolus if BG is low
         }
+        else if(reply == QMessageBox::No){ Almost = 0;}
         // If the user presses No, do nothing
     } else if (currentBG > profileTargetBG) {
         double correctionBolus = (currentBG - profileTargetBG) / profileCorrectionFactor;
@@ -243,7 +246,7 @@ void bolusmenu::updateBolusDisplay() {
     lloadActiveProfile();
 
     QString result;
-    double durationHours = profileInsulinDuration / 3600.0;  // Convert seconds to hours
+    double durationHours = profileInsulinDuration / 60;  // Convert seconds to hours
 
 
     if (ui->showExtendedCheckBox->isChecked()) {
@@ -262,7 +265,29 @@ void bolusmenu::updateBolusDisplay() {
 
     ui->resultTextEdit->setPlainText(result);
 }
+void bolusmenu::OverrideupdateBolusDisplay() {
+    lloadActiveProfile();
 
+    QString result;
+    double OverridedurationHours = profileInsulinDuration / 60;  // Convert seconds to hours
+
+
+    if (ui->showExtendedCheckBox->isChecked()) {
+        double bolusPerHour = (OverridedurationHours > 0)
+                              ? (currentBolusInfo.extendedBolus / OverridedurationHours)
+                              : 0;
+
+        result = QString("Final Bolus: %1 units\nImmediate Bolus: %2 units\nBolus Per Hour: %3 units")
+                     .arg(currentBolusInfo.finalBolus)
+                     .arg(currentBolusInfo.extendedBolus)
+                     .arg(QString::number(bolusPerHour, 'f', 2));
+    } else {
+        result = QString("Final Bolus: %1 units")
+                     .arg(currentBolusInfo.finalBolus);
+    }
+
+    ui->resultTextEdit->setPlainText(result);
+}
 
 
 
@@ -344,7 +369,6 @@ void bolusmenu::on_backButton_clicked() {
     emit returnToMainWindow();
     this->close();
 }
-
 
 
 

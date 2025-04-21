@@ -20,6 +20,7 @@ public:
 private slots:
     void calculateBolus();  // Slot for calculating bolus
     void updateBolusDisplay();  // Slot for updating bolus display
+    void OverrideupdateBolusDisplay();
     void addCarbs();  // Slot for adding carbs
     void cancelBolus();
     void logBolus(const BolusInfo& info);
@@ -69,6 +70,5 @@ private:
 };
 
 #endif // BOLUSMENU_H
-
 
 

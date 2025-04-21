@@ -15,6 +15,9 @@
 #include <QFont>
 #include <QString>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QResizeEvent>
+#include <QLineEdit>
 #include <QTimer>
 #include <QDateTime>
 #include <QPixmap>
@@ -33,13 +36,19 @@ public:
     ~MainWindow();
 
 public slots:
-    void refreshBatteryBindings();
     void updateControlIQStatusIcon(bool visible);
     void updateBasalDeliveryStatusIcon(bool visible);
 
 private slots:
     void on_optionsButton_clicked();
     void on_bolusButton_clicked();
+
+protected:
+    void showEvent(QShowEvent *e) override;
+    void resizeEvent(QResizeEvent *e) override;
+
+signals:
+    void resized();
 
 private:
     Ui::MainWindow *ui;
@@ -53,7 +62,9 @@ private:
     bool existPIN;
     QTimer *clock;
     int profNum = 0;
-    bool checkingPIN();
+    QWidget *lockOverlay = nullptr;
+    void lockUI();
+    void unlockUI();
     void changeDateTime(const QDateTime &datePlusTime2);
 };
 #endif // MAINWINDOW_H

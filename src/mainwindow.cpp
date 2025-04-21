@@ -37,9 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Set the battery label
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
-    BatteryManager::instance()->plugIn();
-    BatteryManager::instance()->unplug();
-    BatteryManager::instance()->turnOff();
 
     // Clock update hookup
     connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
@@ -52,8 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
     connect(ui->turnOnButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOn);
 
-    ui->glucoseLabel->setText("5.0 mmol/L");
-    ui->iobLabel->setText("IOB: 1.2U");
+    /*
+    ui->glucoseLabel->setText("IOB\n" + QString::number(m_iob->getIOB())); // We'll update it so that it'll change dynamically
+    ui->iobLabel->setText("CGM\n" + QString::number(m_sensor->getGlucoseLevel()) + " mmol/L");  // Update
+    */
 
     // Control-IQ Icon
     QPixmap controlIQONPixmap(":/ui_icons/graydiamond.png");
@@ -70,6 +69,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->basalDeliveryStatusIcon->setIcon(basalDeliveryIcon);
     ui->basalDeliveryStatusIcon->setIconSize(QSize(20, 20));
     ui->basalDeliveryStatusIcon->setVisible(false);
+
+    // Lockscreen / Unlock Overlay
+
+    lockOverlay = new QWidget(this->centralWidget()); // on top
+    lockOverlay->setStyleSheet("background-color:black;");
+    lockOverlay->setGeometry(this->centralWidget()->rect());
+    lockOverlay->hide();
+
+    // Global lock/unlcok coming from batterymanager class
+    connect(BatteryManager::instance(), &BatteryManager::deviceTurnedOff,
+            this, &MainWindow::lockUI);
+    connect(BatteryManager::instance(), &BatteryManager::deviceTurnedOn,
+            this, &MainWindow::unlockUI);
+
+    BatteryManager::instance()->turnOff();   // set the global state to OFF INITIALLY
+    lockUI();
 }
 
 MainWindow::~MainWindow()
@@ -84,13 +99,45 @@ void MainWindow::on_optionsButton_clicked()
     options->show();
 }
 
+void MainWindow::lockUI()
+{
+    if (options)   options->hide();
+    if (bolusPage) bolusPage->hide();
+
+    lockOverlay->setGeometry(this->centralWidget()->rect());
+    lockOverlay->show();
+    lockOverlay->raise();
+
+    // keep the four power buttons
+    ui->turnOnButton->raise();
+    ui->turnOffButton->raise();
+    ui->ChargeButton->raise();
+    ui->UnplugButton->raise();
+}
+
+void MainWindow::unlockUI()
+{
+    lockOverlay->hide();
+}
+
+void MainWindow::resizeEvent(QResizeEvent *e)
+{
+    QMainWindow::resizeEvent(e);
+    if (lockOverlay)
+        lockOverlay->setGeometry(this->centralWidget()->rect());
+}
+
 // Open Bolus Menu
 void MainWindow::on_bolusButton_clicked()
 {
+    BatteryManager::instance()->updateLabel(bolusPage->findChild<QLabel*>("batteryLabel"));
+
     bolusPage->show();
 }
 
-void MainWindow::refreshBatteryBindings() {
+void MainWindow::showEvent(QShowEvent *e)
+{
+    QMainWindow::showEvent(e);
     BatteryManager::instance()->updateLabel(ui->batteryLabel);
 }
 

@@ -9,6 +9,8 @@
 #include <QWidget>
 #include <QPixmap>
 #include <QString>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QTimer>
 #include <QProgressDialog>
 
@@ -36,6 +38,7 @@ private slots:
     void on_myCGMButton_clicked();
     void on_deviceSettingsButton_clicked();
     void on_historyButton_clicked();
+    void on_bolusHistoryButton_clicked();
     void on_stopInsulinButton_clicked();
     void on_myPumpButton_clicked();
     void on_personalProfilesButton_clicked();

@@ -1,24 +1,28 @@
 #ifndef BATTERYMANAGER_H
 #define BATTERYMANAGER_H
 
-#include "config.h" // To pause/resume clock
-
 #include <QObject>
 #include <QTimer>
 #include <QLabel>
-#include <QMetaObject>
-#include <QTimer>
-#include <QDebug>
-#include <QPixmap>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QDebug>
+#include <QMetaObject>
+#include <QPointer>
+#include <QVector>
+#include "config.h"
 
 class BatteryManager : public QObject {
     Q_OBJECT
 
 public:
-    static BatteryManager* instance(); // Singleton accessor
+    static BatteryManager* instance(); // Singleton
 
-    void updateLabel(QLabel *newBatteryLabel, QLabel *newChargingIcon = nullptr);
+    void registerLabel(QLabel *label);
+    void unregisterLabel(QLabel *label);
+    inline void updateLabel(QLabel *lbl) { registerLabel(lbl); }
+
     void start();
     void startDraining();
     void stop();
@@ -30,19 +34,21 @@ public:
 
 signals:
     void batteryDepleted();
+    void deviceTurnedOn();
+    void deviceTurnedOff();
 
 private:
-    explicit BatteryManager(QObject *parent = nullptr);
+    explicit BatteryManager(QObject *parent=nullptr);
 
-    int batteryLevel = 100;
-    bool isCharging = false;
-    bool isOn = false;
+    int  batteryLevel;
+    bool isCharging;
+    bool isOn;
     bool lowBatteryWarningShown;
 
-    QLabel *chargingIcon = nullptr;
-    QLabel *batteryLabel = nullptr;
-    QTimer *batteryDrainTimer = nullptr;
-    QTimer *batteryChargeTimer = nullptr;
+    QVector<QPointer<QLabel>> batteryLabels;
+
+    QTimer *batteryDrainTimer;
+    QTimer *batteryChargeTimer;
 
     void drainBattery();
     void chargeBatteryStep();

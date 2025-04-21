@@ -14,6 +14,8 @@
 #include <QString>
 #include <QTimer>
 
+// global config, live clock, user-modifiable settings, security pin
+
 class Config : public QObject {
     Q_OBJECT
 
@@ -25,10 +27,12 @@ public:
     void pauseClock();
     void resumeClock();
 
+    // Site Reminder
     static int siteReminderDays;
     static QString siteReminderTime;
     static bool siteReminderEnabled;
 
+    // Temp Basal Rate
     static bool tempBasalRateEnabled;
     void setTempBasalRatePercentage(int percentage);
     int getTempBasalRatePercentage() const;
@@ -36,6 +40,7 @@ public:
     int getTempBasalDuration() const;
 
 
+    // Control-IQ
     static bool controlIQEnabled;
     void setWeight(double w, const QString &unit);
     double getWeight() const;
@@ -44,9 +49,10 @@ public:
     void setTotalDailyInsulin(double val);
     double getTotalDailyInsulin() const;
 
-    static int lowBGThreshold;
+    // Alerts and Reminders
+    static double lowBGThreshold;
     static int lowBGRepeatDelay;
-    static int highBGThreshold;
+    static double highBGThreshold;
     static int highBGRepeatDelay;
     static int afterBolusTime;
     static QStringList missedMealDays;
@@ -54,8 +60,13 @@ public:
     static QString missedMealEndTime;
     static QString soundVolume;
 
+    void    setPin(const QString& pin);            // change / save
+    QString pin() const;                           // current
+    bool    verifyPin(const QString& candidate) const;
+
 signals:
     void clockUpdated(const QString& formattedTime);
+    void pinChanged (const QString& newPin);
 
 private slots:
     void updateClock();
@@ -73,6 +84,8 @@ private:
     double weight = 0.0;
     QString weightUnit = "kg";
     double totalDailyInsulin = 0.0;
+
+    QString m_pin = "3004"; // default pin
 };
 
 #endif // CONFIG_H

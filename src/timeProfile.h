@@ -9,9 +9,9 @@ class timeProfile {
 public:
     //QString     profileName;
     double      basalRate = 0.0;
-    int         correctionFactor = 0;
+    double      correctionFactor = 0.0;
     int         carbRatio = 0;
-    int         targetBG = 0;
+    double      targetBG = 0.0;
     bool        isActive = false;
     QTime       profileTime;
 };

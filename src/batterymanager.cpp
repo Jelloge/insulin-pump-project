@@ -1,6 +1,8 @@
 #include "batterymanager.h"
+#include <QMessageBox>
 
-BatteryManager* BatteryManager::instance() {
+BatteryManager* BatteryManager::instance()
+{
     static BatteryManager* _instance = new BatteryManager();
     return _instance;
 }
@@ -11,120 +13,104 @@ BatteryManager::BatteryManager(QObject *parent)
       isCharging(false),
       isOn(false),
       lowBatteryWarningShown(false),
-      chargingIcon(nullptr),
-      batteryLabel(nullptr)
+      batteryDrainTimer(new QTimer(this)),
+      batteryChargeTimer(new QTimer(this))
 {
-    batteryDrainTimer = new QTimer(this);
-    connect(batteryDrainTimer, &QTimer::timeout, this, &BatteryManager::drainBattery);
-
-    batteryChargeTimer = new QTimer(this);
+    connect(batteryDrainTimer,  &QTimer::timeout, this, &BatteryManager::drainBattery);
     connect(batteryChargeTimer, &QTimer::timeout, this, &BatteryManager::chargeBatteryStep);
 }
 
-// Called from each page to bind the current UI's battery widgets
-void BatteryManager::updateLabel(QLabel *newBatteryLabel, QLabel *newChargingIcon) {
-    batteryLabel = newBatteryLabel;
-    chargingIcon = newChargingIcon;
-
+void BatteryManager::registerLabel(QLabel *label)
+{
+    if (!label) return;
+    if (!batteryLabels.contains(label))
+        batteryLabels.append(label);
     updateUI();
-
-    // Clear the charging icon if present
-    if (chargingIcon)
-        chargingIcon->clear();
 }
 
-// Start full battery monitoring
-void BatteryManager::start() {
+void BatteryManager::unregisterLabel(QLabel *label)
+{
+    batteryLabels.removeAll(label);
+}
+
+void BatteryManager::start()
+{
     isOn = true;
     updateUI();
     batteryDrainTimer->start(3000);
 }
 
-// used on each page switch to ensure draining continues
-void BatteryManager::startDraining() {
+void BatteryManager::startDraining()
+{
     isOn = true;
-
-    if (!batteryLabel) {
-        qDebug() << "[BatteryManager] No battery label set";
-        return;
-    }
-    if (!batteryDrainTimer->isActive()) {
+    if (!batteryDrainTimer->isActive())
         batteryDrainTimer->start(3000);
-    }
 }
 
-// stop draining but preserve state
-void BatteryManager::stop() {
+void BatteryManager::stop()
+{
     isOn = false;
     batteryDrainTimer->stop();
     batteryChargeTimer->stop();
-    if (chargingIcon) chargingIcon->clear();
 }
 
-// kill all operations
-void BatteryManager::stopAll() {
+void BatteryManager::stopAll()
+{
     isOn = false;
     isCharging = false;
     batteryDrainTimer->stop();
     batteryChargeTimer->stop();
-    if (chargingIcon) chargingIcon->clear();
 }
 
-// turn on device globally
-void BatteryManager::turnOn() {
-    // If already ON, do nothing
+void BatteryManager::turnOn()
+{
+    const QString entered = QInputDialog::getText(nullptr, // PIN Prompt first, then power
+                                tr("Unlock Pump"),
+                                tr("Enter PIN:"),
+                                QLineEdit::Password);
+
+    if (!Config::instance()->verifyPin(entered)) {
+        QMessageBox::critical(nullptr, tr("Wrong PIN"), tr("Access denied."));
+        return;                        // abort power‑on
+    }
+
     if (isOn) return;
     isOn = true;
-
-    // Start draining battery
     startDraining();
-
-    // Resume clock
     Config::instance()->resumeClock();
-
+    emit deviceTurnedOn();
     qDebug() << "Device turned ON";
 }
 
-// Turn off device globally
-void BatteryManager::turnOff() {
+void BatteryManager::turnOff()
+{
     if (!isOn) return;
     isOn = false;
-
-    // Stop battery draining and charging
     stopAll();
-
-    // Pause the clock
     Config::instance()->pauseClock();
-
+    emit deviceTurnedOff();
     qDebug() << "Device turned OFF";
 }
 
-// Start charging the battery
-void BatteryManager::plugIn() {
+void BatteryManager::plugIn()
+{
     if (isCharging || batteryLevel >= 100) return;
-
     isCharging = true;
-    if (chargingIcon) {
-        chargingIcon->setPixmap(QPixmap(":/ui_icons/charging.jpg").scaled(20, 20, Qt::KeepAspectRatio));
-    }
-    if (!batteryChargeTimer->isActive()) {
+    if (!batteryChargeTimer->isActive())
         batteryChargeTimer->start(1000);
-    }
 }
 
-// Stop charging
-void BatteryManager::unplug() {
+void BatteryManager::unplug()
+{
     isCharging = false;
-    if (chargingIcon) chargingIcon->clear();
     batteryChargeTimer->stop();
 }
 
-// Battery goes down 1% every 3s if not charging
-void BatteryManager::drainBattery() {
+void BatteryManager::drainBattery()
+{
     if (!isCharging && isOn && batteryLevel > 0) {
-        batteryLevel--;
+        --batteryLevel;
         updateUI();
-
         if (batteryLevel == 0) {
             qDebug() << "Battery dead, turning off...";
             emit batteryDepleted();
@@ -133,36 +119,36 @@ void BatteryManager::drainBattery() {
     }
 }
 
-// Battery goes up 1% every 1s when charging
-void BatteryManager::chargeBatteryStep() {
+void BatteryManager::chargeBatteryStep()
+{
     if (isCharging && batteryLevel < 100) {
-        batteryLevel++;
+        ++batteryLevel;
         updateUI();
     } else if (batteryLevel >= 100) {
         batteryChargeTimer->stop();
     }
 }
 
-// Updates UI text, color, and style
-void BatteryManager::updateUI() {
-    if (!batteryLabel) return;
+void BatteryManager::updateUI()
+{
+    for (auto &lblPtr : batteryLabels)
+    {
+        if (!lblPtr) continue;
 
-    batteryLabel->setText("Battery: " + QString::number(batteryLevel) + "%");
+        lblPtr->setText(QString("Battery: %1%").arg(batteryLevel));
 
-    // If battery > 10, reset the warning shown
-    if (batteryLevel > 10) {
-        lowBatteryWarningShown = false;
-    }
-
-    if (batteryLevel == 10 && !lowBatteryWarningShown) {
-        batteryLabel->setStyleSheet("font-weight: bold; font-size: 11pt; color: red;");
-        QMessageBox::warning(nullptr, "Battery Low", "Battery is at 10%. Please plug in the charger!");
-        lowBatteryWarningShown = true;
-    } else if (batteryLevel < 10) {
-        // Already low, keep style red
-        batteryLabel->setStyleSheet("font-weight: bold; font-size: 11pt; color: red;");
-    } else {
-        // battery > 10
-        batteryLabel->setStyleSheet("font-weight: bold; font-size: 11pt; color: lightgreen;");
+        if (batteryLevel > 10) {
+            lblPtr->setStyleSheet("font-weight:bold;font-size:11pt;color:lightgreen;");
+            lowBatteryWarningShown = false;
+        }
+        else if (batteryLevel == 10 && !lowBatteryWarningShown) {
+            lblPtr->setStyleSheet("font-weight:bold;font-size:11pt;color:red;");
+            QMessageBox::warning(nullptr, "Battery Low",
+                                 "Battery is at 10 %. Please plug in the charger!");
+            lowBatteryWarningShown = true;
+        }
+        else { // <10
+            lblPtr->setStyleSheet("font-weight:bold;font-size:11pt;color:red;");
+        }
     }
 }

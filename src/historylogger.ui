@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HistoryLogger</class>
+ <widget class="QDialog" name="HistoryLogger">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>800</width><height>520</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>History Logger</string>
+  </property>
+
+  <!-- dark theme identical to other pages -->
+  <property name="styleSheet">
+   <string notr="true">
+background-color:#1E1E1E;
+color:white;
+font-family:'Segoe UI';
+QPushButton{
+    font:bold 12pt;
+    background-color:#333;
+    color:white;
+    border-radius:10px;
+    border:2px solid #555;
+}
+QPushButton:pressed{background-color:#444;}
+QLabel{
+    font:bold 11pt;
+    color:white;
+}
+QTableWidget{
+    background-color:#2A2A2A;
+    gridline-color:#555;
+    selection-background-color:#444;
+    selection-color:#fff;
+    border:1px solid #555;
+}
+   </string>
+  </property>
+
+  <!-- ============== top bar (battery | T | time) ============== -->
+  <widget class="QFrame" name="topBarFrame">
+   <property name="geometry">
+    <rect><x>20</x><y>20</y><width>760</width><height>48</height></rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:#2A2A2A;border:1px solid #555;border-radius:5px;</string>
+   </property>
+
+   <layout class="QHBoxLayout" name="topBarLayout" stretch="0,1,0">
+    <item>
+     <widget class="QLabel" name="batteryLabel">
+      <property name="styleSheet">
+       <string notr="true">font-weight:bold;font-size:11pt;color:lightgreen;</string>
+      </property>
+      <property name="text"><string>Battery: 100%</string></property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="tandemLogoButton">
+      <property name="minimumSize"><size><width>40</width><height>40</height></size></property>
+      <property name="text"><string>T</string></property>
+      <property name="toolTip"><string>Return to Home</string></property>
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton{
+    font:bold 18pt;
+    background-color:#333;
+    color:white;
+    border-radius:10px;
+    border:2px solid #555;
+}
+       </string>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QLabel" name="timeDateLabel">
+      <property name="minimumSize"><size><width>240</width><height>0</height></size></property>
+      <property name="alignment"><set>Qt::AlignCenter</set></property>
+      <property name="styleSheet">
+       <string notr="true">font-weight:bold;font-size:13pt;</string>
+      </property>
+      <property name="text"><string>15:30 | 14 Nov</string></property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+
+  <!-- ============== main body ============== -->
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect><x>20</x><y>80</y><width>760</width><height>380</height></rect>
+   </property>
+
+   <widget class="QWidget" name="bolusTab">
+    <attribute name="title"><string>BOLUS</string></attribute>
+
+    <widget class="QTableWidget" name="bolusTable">
+     <property name="geometry"><rect><x>0</x><y>0</y><width>760</width><height>350</height></rect></property>
+     <property name="columnCount"><number>5</number></property>
+     <property name="rowCount"><number>0</number></property>
+     <column>
+      <property name="text"><string>Timestamp</string></property>
+     </column>
+     <column>
+      <property name="text"><string>Final (U)</string></property>
+     </column>
+     <column>
+      <property name="text"><string>Immediate (U)</string></property>
+     </column>
+     <column>
+      <property name="text"><string>Extended (U)</string></property>
+     </column>
+     <column>
+      <property name="text"><string>Note</string></property>
+     </column>
+     <property name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+
+   <widget class="QWidget" name="cgmTab">
+    <attribute name="title"><string>CGM</string></attribute>
+    <layout class="QVBoxLayout" name="vboxCGM">
+     <item>
+      <spacer name="spacerCGM">
+       <property name="orientation"><enum>Qt::Vertical</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="cgmPlaceholder">
+       <property name="alignment"><set>Qt::AlignCenter</set></property>
+       <property name="text"><string>&lt;i&gt;CGM history coming soon…&lt;/i&gt;</string></property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+
+   <widget class="QWidget" name="alertsTab">
+    <attribute name="title"><string>ALERTS</string></attribute>
+    <layout class="QVBoxLayout" name="vboxAlerts">
+     <item>
+      <spacer name="spacerAlerts">
+       <property name="orientation"><enum>Qt::Vertical</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="alertsPlaceholder">
+       <property name="alignment"><set>Qt::AlignCenter</set></property>
+       <property name="text"><string>&lt;i&gt;Alert history coming soon…&lt;/i&gt;</string></property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+
+  <!-- ============== close button ============== -->
+  <widget class="QPushButton" name="closeButton">
+   <property name="geometry"><rect><x>690</x><y>470</y><width>90</width><height>32</height></rect></property>
+   <property name="text"><string>Close</string></property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{background-color:#333;color:white;border-radius:10px;border:2px solid #555;}QPushButton:pressed{background-color:#444;}</string>
+   </property>
+  </widget>
+ </widget>
+
+ <resources/>
+ <connections/>
+</ui>

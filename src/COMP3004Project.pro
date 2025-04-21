@@ -13,6 +13,7 @@ SOURCES += \
     boluscalculator.cpp \
     bolusmenu.cpp \
     glucosemonitoring.cpp \
+    historylogger.cpp \
     main.cpp \
     mainwindow.cpp \
     optionsmenu.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     boluscalculator.h \
     bolusmenu.h \
     glucosemonitoring.h \
+    historylogger.h \
     mainwindow.h \
     optionsmenu.h \
     personalprofiles.h \
@@ -40,6 +42,7 @@ HEADERS += \
 
 FORMS += \
     bolusmenu.ui \
+    historylogger.ui \
     mainwindow.ui \
     optionsmenu.ui \
     personalprofiles.ui \
