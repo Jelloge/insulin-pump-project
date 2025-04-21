@@ -340,12 +340,6 @@ void GlucoseMonitoring::generateReading() {
                        .arg(reading, 0, 'f', 1)
                        .arg(timestamp.toString("hh:mm:ss")));
 
-        // Apply custom stylesheet to change the background color to black
-        msgBox.setStyleSheet("QMessageBox { background-color: #333; color: white; }"
-                             "QLabel { color: white; }"
-                             "QPushButton { background-color: #333; color: white; border: none; padding: 5px 15px; }"
-                             "QPushButton:hover { background-color: #555; }");
-
         msgBox.exec();  // Display the message box
     }
     else if (reading >= highAlertThreshold) {
@@ -357,12 +351,6 @@ void GlucoseMonitoring::generateReading() {
         msgBox.setText(QString("Warning: High Glucose Level: %1 mmol/L\nTime: %2")
                        .arg(reading, 0, 'f', 1)
                        .arg(timestamp.toString("hh:mm:ss")));
-
-        // Apply custom stylesheet to change the background color to black
-        msgBox.setStyleSheet("QMessageBox { background-color: #333; color: white; }"
-                             "QLabel { color: white; }"
-                             "QPushButton { background-color: #333; color: white; border: none; padding: 5px 15px; }"
-                             "QPushButton:hover { background-color: #555; }");
 
         msgBox.exec();  // Display the message box
     }
@@ -382,11 +370,6 @@ double GlucoseMonitoring::getLatestReading() const {
         return glucoseReadings.last().second;
     }
     return -1;
-}
-
-void GlucoseMonitoring::setAlertThresholds(double low, double high) {
-    lowAlertThreshold = low;
-    highAlertThreshold = high;
 }
 
 bool GlucoseMonitoring::saveToJson(const QString &filename) {
