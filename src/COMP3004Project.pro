@@ -52,6 +52,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     ui_icons.qrc \
+    ui_icons.qrc \
+    ui_icons.qrc \
+    ui_icons/resources.qrc \
+    ui_icons/resources.qrc \
     ui_icons/resources.qrc  \
     ui_icons/resources.qrc
 
@@ -62,5 +66,7 @@ DISTFILES += \
     ui_icons/charging.jpg \
     ui_icons/check.png \
     ui_icons/close.png \
+    ui_icons/graydiamond.png \
+    ui_icons/letter-b.png \
     ui_icons/plus.png
 
