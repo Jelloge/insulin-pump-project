@@ -44,9 +44,6 @@
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
-     <property name="text" stdset="0">
-      <string>CGM Graph Placeholder</string>
-     </property>
     </widget>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
@@ -72,6 +69,28 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="basalDeliveryStatusIcon">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="iobLabel">
         <property name="styleSheet">
          <string notr="true">color: white; font-weight: bold; font-size: 11pt;</string>
@@ -86,11 +105,11 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layoutWidget1">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>0</y>
+       <y>5</y>
        <width>731</width>
        <height>46</height>
       </rect>
@@ -108,7 +127,7 @@
          <string notr="true">font-weight: bold; font-size: 11pt; color: lightgreen;</string>
         </property>
         <property name="text">
-         <string/>
+         <string>Battery: 100%</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -150,7 +169,7 @@
          <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
         </property>
         <property name="text">
-         <string/>
+         <string>15:30 | 14 Nov</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -159,7 +178,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layoutWidget2">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -171,13 +190,19 @@
      <layout class="QHBoxLayout" name="horizontalLayout_bottom">
       <item>
        <widget class="QPushButton" name="optionsButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
-         <string notr="true">
- QPushButton {
+         <string notr="true"> QPushButton {
      background-color: transparent;
      color: #FFA500;
      font: bold 12pt;
-     border: none;
+     border-radius: 10px;
+     border: 2px solid #555;
  }
  QPushButton:hover {
      color: #FFCC66;
@@ -191,13 +216,20 @@
       </item>
       <item>
        <widget class="QPushButton" name="bolusButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
          <string notr="true">
  QPushButton {
      background-color: transparent;
      color: #00AEEF;
      font: bold 12pt;
-     border: none;
+     border-radius: 10px;
+     border: 2px solid #555;
  }
  QPushButton:hover {
      color: #66CCFF;
@@ -211,38 +243,54 @@
       </item>
      </layout>
     </widget>
-    <widget class="QLabel" name="chargingIconLabel">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>100</y>
-       <width>71</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QPushButton" name="timeRangeButton">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>90</y>
-       <width>83</width>
-       <height>41</height>
+       <x>40</x>
+       <y>140</y>
+       <width>51</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>3h</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="controlIQStatusIcon">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>100</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="UnplugButton">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>460</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Unplug</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="ChargeButton">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>360</y>
+      <x>800</x>
+      <y>400</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -251,17 +299,33 @@
      <string>Plug in</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="UnplugButton">
+   <widget class="QPushButton" name="turnOffButton">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>440</y>
+      <x>730</x>
+      <y>20</y>
       <width>61</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Unplug</string>
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="turnOnButton">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>20</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>ON</string>
     </property>
    </widget>
   </widget>
@@ -280,8 +344,8 @@
  <customwidgets>
   <customwidget>
    <class>QChartView</class>
-   <extends>QGraphicsView</extends>
-   <header>QtCharts.h</header>
+   <extends>QLabel</extends>
+   <header>QtCharts</header>
   </customwidget>
  </customwidgets>
  <resources/>
