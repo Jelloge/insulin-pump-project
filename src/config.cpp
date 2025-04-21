@@ -20,9 +20,9 @@ bool Config::siteReminderEnabled = false;
 bool Config::tempBasalRateEnabled = false;
 bool Config::controlIQEnabled = false;
 
-int Config::lowBGThreshold = 70;
+double Config::lowBGThreshold = 7.0;
 int Config::lowBGRepeatDelay = 15;
-int Config::highBGThreshold = 200;
+double Config::highBGThreshold = 11.0;
 int Config::highBGRepeatDelay = 120;
 int Config::afterBolusTime = 90;
 QStringList Config::missedMealDays = {};

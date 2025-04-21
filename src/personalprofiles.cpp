@@ -297,20 +297,20 @@ void personalProfiles::on_basalRateButton_clicked()
 void personalProfiles::on_correctionFactorButton_clicked()
 {
     bool ok = false;
-    int corrFact = QInputDialog::getInt(
+    double corrFact = QInputDialog::getDouble(
        this,
        tr("Enter Correction Factor"),
-       tr("Range: 1 unit:1 mg/dL to 1 unit:600 mg/dL"),
-       1,       // initial
-       1,       // min
-       600,     // max
-       1,       // step
+       tr("Range: 1 unit:0.1 mmol/L to 1 unit:33.3 mmol/L"),
+       1.0,       // initial
+       0.1,       // min
+       33.3,      // max
+       1,         // step
        &ok
    );
 
     if (ok) {
         newProfile->correctionFactor = corrFact;
-        ui->correctionFactorButton->setText(QString("1 unit:%1 mg/dL").arg(corrFact));
+        ui->correctionFactorButton->setText(QString("1 unit:%1 mmol/L").arg(corrFact));
     }
 }
 
@@ -337,20 +337,20 @@ void personalProfiles::on_carbRatioButton_clicked()
 void personalProfiles::on_targetBGButton_clicked()
 {
     bool ok = false;
-    int targetBG = QInputDialog::getInt(
+    double targetBG = QInputDialog::getDouble(
        this,
        tr("Enter Target Blood Glucose"),
-       tr("Range: 70  mg/dL to 250 mg/dL"),
-       70,
-       70,
-       250,
+       tr("Range: 3.9 mmol/L to 13.9 mmol/L"),
+       7.0,
+       3.9,
+       13.9,
        1,
        &ok
    );
 
     if (ok) {
         newProfile->targetBG = targetBG;
-        ui->targetBGButton->setText(QString("%1 mg/dL").arg(targetBG));
+        ui->targetBGButton->setText(QString("%1 mmol/L").arg(targetBG));
     }
 }
 
@@ -377,9 +377,9 @@ void personalProfiles::on_checkButton_Timed_clicked()
     timeProfileObj["isActive"] = true;
 
     QString msg = QString("Basal Rate: %1 units/hr\n"
-                          "Correction Factor: 1 unit:%2 mg/dL\n"
+                          "Correction Factor: 1 unit:%2 mmol/L\n"
                           "Carb Ratio: 1 unit:%3 g\n"
-                          "Target BG: %4 mg/dL")
+                          "Target BG: %4 mmol/L")
                     .arg(br, 0 , 'f', 1)
                     .arg(cF)
                     .arg(cR)
@@ -396,10 +396,10 @@ void personalProfiles::on_checkButton_Timed_clicked()
     if (reply == QMessageBox::Ok) {
         QString topLine = QString("%1%2%3%4%5")
             .arg(QString("%1 u/hr").arg(br, 0, 'f', 1).leftJustified(20))
-            .arg(QString("1u:%1 mg/dL").arg(cF).leftJustified(20))
+            .arg(QString("1u:%1 mmol/L").arg(cF).leftJustified(20))
             .arg(QString(" "), 10)
             .arg(QString("1u:%1 g").arg(cR).leftJustified(20))
-            .arg(QString("%1 mg/dL").arg(tBG).leftJustified(17));
+            .arg(QString("%1 mmol/L").arg(tBG).leftJustified(17));
 
         QString labelLine = QString("%1%2%3%4%5")
             .arg("   BASAL", -17)
@@ -548,9 +548,9 @@ void personalProfiles::on_checkButton_TimedBolus_clicked()
         "Profile Name: %1\n\n"
         "➤ Timed Settings\n"
         "  • Basal Rate:       %2 u/hr\n"
-        "  • Corr. Factor:      1u:%3 mg/dL\n"
+        "  • Corr. Factor:      1u:%3 mmol/L\n"
         "  • Carb Ratio:       1u:%4 g\n"
-        "  • Target BG:        %5 mg/dL\n\n"
+        "  • Target BG:        %5 mmol/L\n\n"
         "➤ Bolus Settings\n"
         "  • Insulin Duration:  %6h %7m\n"
         "  • Max Bolus:           %8 units\n"
@@ -741,10 +741,10 @@ void personalProfiles::on_editProfileButton_clicked()
     // Timed Settings
     QString timedTop = QString("%1%2%3%4%5")
         .arg(QString("%1 u/hr").arg(newProfile->basalRate, 0, 'f', 1).leftJustified(20))
-        .arg(QString("1u:%1 mg/dL").arg(newProfile->correctionFactor).leftJustified(20))
+        .arg(QString("1u:%1 mmol/L").arg(newProfile->correctionFactor).leftJustified(20))
         .arg(QString(" "), 10)
         .arg(QString("1u:%1 g").arg(newProfile->carbRatio).leftJustified(20))
-        .arg(QString("%1 mg/dL").arg(newProfile->targetBG).leftJustified(17));
+        .arg(QString("%1 mmol/L").arg(newProfile->targetBG).leftJustified(17));
 
     QString timedBottom = QString("%1%2%3%4%5")
         .arg("   BASAL", -17)
@@ -755,9 +755,9 @@ void personalProfiles::on_editProfileButton_clicked()
 
     ui->timedSettingsButton->setText(timedTop + "\n" + timedBottom);
     ui->basalRateButton->setText(QString::number(newProfile->basalRate, 'f', 1) + " units/hr");
-    ui->correctionFactorButton->setText(QString("1 unit:%1 mg/dL").arg(newProfile->correctionFactor));
+    ui->correctionFactorButton->setText(QString("1 unit:%1 mmol/L").arg(newProfile->correctionFactor));
     ui->carbRatioButton->setText(QString("1 unit:%1 g").arg(newProfile->carbRatio));
-    ui->targetBGButton->setText(QString("%1 mg/dL").arg(newProfile->targetBG));
+    ui->targetBGButton->setText(QString("%1 mmol/L").arg(newProfile->targetBG));
 
     // Bolus Settings
     QString bolusTop = QString("%1%2%3%4%5")
@@ -889,10 +889,10 @@ void personalProfiles::handleNewTimeSegment(QJsonObject segment, int targetPageI
 
     QString topLine = QString("%1%2%3%4%5")
         .arg(QString("%1 u/hr").arg(br, 0, 'f', 1).leftJustified(20))
-        .arg(QString("1u:%1 mg/dL").arg(cF).leftJustified(20))
+        .arg(QString("1u:%1 mmol/L").arg(cF).leftJustified(20))
         .arg(QString(" "), 10)
         .arg(QString("1u:%1 g").arg(cR).leftJustified(20))
-        .arg(QString("%1 mg/dL").arg(tBG).leftJustified(17));
+        .arg(QString("%1 mmol/L").arg(tBG).leftJustified(17));
 
     QString labelLine = QString("%1%2%3%4%5")
         .arg("   BASAL", -17)

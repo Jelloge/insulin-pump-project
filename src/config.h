@@ -47,9 +47,9 @@ public:
     double getTotalDailyInsulin() const;
 
     // Alerts and Reminders
-    static int lowBGThreshold;
+    static double lowBGThreshold;
     static int lowBGRepeatDelay;
-    static int highBGThreshold;
+    static double highBGThreshold;
     static int highBGRepeatDelay;
     static int afterBolusTime;
     static QStringList missedMealDays;

@@ -789,11 +789,11 @@ void optionsMenu::on_lowBGButton_clicked()
     if (!lowBGAlertEnabled) return;
 
     bool ok = false;
-    int lowBGValue = QInputDialog::getInt(
+    double lowBGValue = QInputDialog::getDouble(
         this,
         "Remind Me Below",
-        "Enter low blood glucose threshold (mg/dL):",
-        70, 70, 120, 1, &ok);
+        "Enter low blood glucose threshold (mmol/L):",
+        7.0, 3.9, 13.9, 1, &ok);
     if (!ok) return;
 
     int repeatDelay = QInputDialog::getInt(
@@ -807,7 +807,7 @@ void optionsMenu::on_lowBGButton_clicked()
     QMessageBox::information(
         this,
         "Low BG Reminder Set",
-        QString("Reminder set to alert below %1 mg/dL\nand repeat reminder after %2 minutes.")
+        QString("Reminder set to alert below %1 mmol/L\nand repeat reminder after %2 minutes.")
             .arg(lowBGValue)
             .arg(repeatDelay)
     );
@@ -815,7 +815,7 @@ void optionsMenu::on_lowBGButton_clicked()
     Config::lowBGThreshold = lowBGValue;
     Config::lowBGRepeatDelay = repeatDelay;
 
-    ui->lowBGButton->setText(QString("Low BG: %1 mg/dL, %2 min").arg(lowBGValue).arg(repeatDelay));
+    ui->lowBGButton->setText(QString("Low BG: %1 mmol/L, %2 min").arg(lowBGValue).arg(repeatDelay));
 }
 
 void optionsMenu::on_highBGToggleButton_clicked()
@@ -838,11 +838,11 @@ void optionsMenu::on_highBGButton_clicked()
     if (!highBGAlertEnabled) return;
 
     bool ok = false;
-    int highBGValue = QInputDialog::getInt(
+    double highBGValue = QInputDialog::getDouble(
         this,
         "Remind Me Above",
-        "Enter high blood glucose threshold (mg/dL):",
-        200, 150, 300, 1, &ok);
+        "Enter high blood glucose threshold (mmol/L):",
+        11.0, 8.33, 16.7, 1, &ok);
     if (!ok) return;
 
     int repeatDelay = QInputDialog::getInt(
@@ -855,7 +855,7 @@ void optionsMenu::on_highBGButton_clicked()
     QMessageBox::information(
         this,
         "High BG Reminder Set",
-        QString("Reminder set to alert above %1 mg/dL\nand repeat reminder after %2 minutes.")
+        QString("Reminder set to alert above %1 mmol/L\nand repeat reminder after %2 minutes.")
             .arg(highBGValue)
             .arg(repeatDelay)
     );
@@ -863,7 +863,7 @@ void optionsMenu::on_highBGButton_clicked()
     Config::highBGThreshold = highBGValue;
     Config::highBGRepeatDelay = repeatDelay;
 
-    ui->highBGButton->setText(QString("High BG: %1 mg/dL, %2 min").arg(highBGValue).arg(repeatDelay));
+    ui->highBGButton->setText(QString("High BG: %1 mmol/L, %2 min").arg(highBGValue).arg(repeatDelay));
 }
 
 void optionsMenu::on_afterBolusBGToggleButton_clicked()
@@ -1036,19 +1036,19 @@ void optionsMenu::on_startStopSensorButton_clicked()
 void optionsMenu::on_calibrateCGMButton_clicked()
 {
     bool ok = false;
-    int calibrationBG = QInputDialog::getInt(
+    double calibrationBG = QInputDialog::getDouble(
        this,
        tr("Enter Blood Glucose"),
        tr("Enter the Blood Glucose value from the Blood Glucose Meter."),
-       70,
-       70,
-       250,
+       7.0,
+       3.9,
+       13.9,
        1,
        &ok
    );
 
     if (ok) {
-        QString message = QString("Calibration Blood Glucose: %1 mg/dL").arg(calibrationBG);
+        QString message = QString("Calibration Blood Glucose: %1 mmol/L").arg(calibrationBG);
         QMessageBox::information(this, "Calibration Accepted", message);
     }
 }

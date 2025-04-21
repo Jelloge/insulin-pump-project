@@ -63,10 +63,10 @@ void timedSettingsProfiles::refreshTimedSettingsList()
 
         QString topLine = QString("%1%2%3%4%5")
             .arg(QString("%1 u/hr").arg(br, 0, 'f', 1).leftJustified(20))
-            .arg(QString("1u:%1 mg/dL").arg(cF).leftJustified(20))
+            .arg(QString("1u:%1 mmol/L").arg(cF).leftJustified(20))
             .arg(QString(" "), 10)
             .arg(QString("1u:%1 g").arg(cR).leftJustified(20))
-            .arg(QString("%1 mg/dL").arg(tBG).leftJustified(17));
+            .arg(QString("%1 mmol/L").arg(tBG).leftJustified(17));
 
         QString labelLine = QString("%1%2%3%4%5")
             .arg("   BASAL", -17)

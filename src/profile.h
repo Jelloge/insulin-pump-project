@@ -9,9 +9,9 @@ class profile {
 public:
     QString     profileName;
     double      basalRate = 0.0;
-    int         correctionFactor = 0;
+    double      correctionFactor = 0.0;
     int         carbRatio = 0;
-    int         targetBG = 0;
+    double      targetBG = 0.0;
     int         insulinDuration = 0;
     int         maxBolus = 0;
     bool        carbsEnabled = false;
