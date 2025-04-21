@@ -1,4 +1,3 @@
-/*
 #include "historylogger.h"
 #include "ui_historylogger.h"
 
@@ -64,4 +63,3 @@ void HistoryLogger::populateBolusTable(const QJsonArray &arr)
         ++row;
     }
 }
-*/

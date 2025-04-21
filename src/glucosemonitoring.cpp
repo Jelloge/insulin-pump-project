@@ -429,4 +429,3 @@ void GlucoseMonitoring::saveToJson(const QString &filename) {
     }
 }
 
-

@@ -47,7 +47,6 @@ public:
     double getLatestReading() const;
     void cycleTimeRange();
     void saveToJson(const QString &filename);
-    double getLatestGlucoseReading() const;
 
 signals:
     void newReading(double value);
