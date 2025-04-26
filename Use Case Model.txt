@@ -1,52 +1,65 @@
-Use Case Model:
-
+Insulin Pump: Use Case Model:
 Use Case: Setting up an interactive software simulation of the t:slim X2 insulin pump.
-Primary Actor: The user (patient) of the insulin pump.
-Scope: 
+Primary Actor(s): User / Patient
+Scope: Tandem t:slim x2 Diabetes Insulin Pump
 Level: User level (user wants to easily operate the t:slim X2 insulin pump)
 Stakeholders and Interests:
-The user (patient): wants an easy-to-use insulin pump system that delivers precise insulin dosages for effective diabetes management.
-Tandem Diabetes Care: insulin pump manufacturer, aims to provide a reliable insulin delivery system.
-Healthcare providers: want to ensure patients understand how to use the pump for effective diabetes management.
-Regulatory bodies: wants to ensure the device complies with medical device laws and safety standards.
-
-Precondition: 
-
-Success Guarantee: The user interacts with the t:slim X2 insulin pump to monitor glucose levels and manage insulin delivery.
-
+User/Patient: Wants an easy-to-use insulin pump system that delivers precise insulin dosages to treat diabetes effectively.
+Tandem Diabetes Care: Insulin pump manufacturer, aims to provide a reliable insulin delivery system.
+Healthcare providers: Wants to ensure patients understand how to use the pump to effectively manage diabetes.
+Pre-conditions:
+The insulin pump is fully operational and properly configured.
+Reservoir is filled with insulin.
+The battery is sufficiently charged.
+A personal profile is created and activated.
+Success Guarantee:
+The user interacts with the t:slim X2 insulin pump to monitor glucose levels and manages insulin delivery.
 Main Success Scenario:
-1.	The user starts the t:slim X2 insulin pump:
-  a.	The insulin pump is removed from the USB charger.
-  b.	The user hold the power button to turn the pump on.
-  c.	The user enters the security PIN to unlock the device.
-  d.	The user checks the insulin fill gauge at the top right-hand corner and ensures the 300-unit insulin cartridge is properly filled and inserted.
-2.	The pump is configured based on the user’s daily needs:
-  a.	The user navigates to the personal profiles section, creates a new profile, and inputs their basal rates, carbohydrate ratios, correction factors, and target glucose level.
-  b.	The profile is named according to their current routine/activity (ex: morning, exercise, sleep).
-  c.	The user can modify or delete existing profiles as needed.
-3.	The user administers a bolus:
-  a.	The user accesses the bolus calculator via the home screen.
-  b.	The user manually enters their blood glucose level and carbohydrate intake, or retrieves the values from CGM.
-  c.	The device calculates the recommended dose based on insulin sensitivity and target glucose levels.
-  d.	The user confirms or manually adjusts the suggested dose, and selects a normal, extended, or quick release bolus.
-4.	The pump delivers basal insulin throughout the day:
-  a.	The user selects their basal rate from their personal profile or manually configures it through the options menu.
-  b.	The device continuously delivers insulin at the specified rate unless adjusted.
-  c.	Insulin delivery is stopped when Control IQ technology detects low glucose levels (below 3.9 mmol/L), and the event is logged.
-5.	The user reviews their treatment progress:
-  a.	The user can view detailed records of insulin delivery events, such as the time and amount of the last bolus injection, changes in basal rates, insulin duration, correction factors, or alerts triggered by CGM readings.
-  b.	Healthcare providers can optimize treatment plans if patterns or irregularities in glucose control are identified.
-<<<<<<< HEAD
-  
- Extensions:
- 
- NBansal97
- hello
- 
- 
-=======
-
+1.      The user starts the t:slim X2 insulin pump:
+a.      The insulin pump is removed from the USB charger.
+b.      The user presses the power button to turn the device on.
+c.      The user enters the security PIN to unlock the device.
+2.      The pump is configured based on the user’s daily needs:
+a.      The user navigates to the personal profiles section, creates a new profile, and inputs their basal rates, carbohydrate ratios, correction factors, target blood glucose level, insulin duration, and max bolus. 
+b.     The profile is named according to their current routine/activity (ex: morning, exercise, sleep).
+c.      The user can activate, modify or delete existing profiles as needed.
+3.      The user administers a bolus:
+a.      The user accesses the bolus calculator via the home screen.
+b.  The user manually enters their blood glucose level and carbohydrate intake, or uses the auto-populated value from the CGM.
+c.      The device calculates the recommended dose based on insulin sensitivity and target glucose levels.
+4.      The pump delivers basal insulin throughout the day:
+a.      The user selects their basal rate from their personal profile or manually configures it through the options menu.
+b.      The device continuously delivers insulin at the specified rate unless adjusted.
+c.  Insulin delivery is stopped when Control IQ technology detects low glucose levels (below 3.9 mmol/L), and the event is logged.
+5.      The user reviews their treatment progress:
+a.      The user can view detailed records of insulin delivery events, such as the time and amount of the last bolus injection, changes in basal rates, insulin duration, correction factors, or alerts triggered by CGM readings, in history settings.
 Extensions:
-helloo
-
->>>>>>> 9d3e7f3 (Use Case Model.txt)
+1b. The insulin pump does not turn on due to low battery. 
+    	1b1. The user must reconnect the device to the USB charger.
+    	1b2. Displays warning “Battery low” on the screen.
+1c. The user forgets their security PIN. 
+1c1. The user must enter the override code 3004.
+1c2. User proceeds to “Options” > “Settings” > “Security Pin” and follows the on-screen prompt to reset the pump’s PIN.
+1d. Insulin cartridge is low/empty.
+    	1d1. Low insulin warning appears.
+    	1d2. User notified: “Warning, insulin cartridge low! Please replace.”
+	1d3. User proceeds to “Options” > “Load” and follows the on-screen instructions for changing the cartridge, filling the tubing, and filling the cannula.
+2a. User inputs incorrect values for basal rates, carbohydrate ratios, correction factors, and target glucose level. 
+2a1. User proceeds to “Options” > “My Pump” > “Personal Profiles” and selects the profile to modify. 
+2a2. User can create time profiles with different basal rates, carbohydrate ratios, correction factors, and target glucose level based on their needs.
+2b. Occlusion detected.
+    	2b1. System suspends insulin delivery.
+    	2b2. User notified: “Occlusion detected! Please check site.”
+3a. Bolus suggests a higher/lower dosage than what the user requires.
+3a1. User confirms or manually adjusts the suggested dose, and selects a normal, extended, or quick release bolus.
+3b. User tries to administer a bolus while insulin is already active.
+3b1. User notified: “Warning: High insulin!”
+3b2. User must manually confirm override before they proceed.
+3c. User manually cancels bolus mid-delivery.
+    	3c1. System logs the event “User manually suspended insulin”
+    	3c2. Insulin resumes when the user confirms restart by tapping the “Calculate Bolus” again for the dose, or selects “Options” > “Resume Insulin” if suspended. 
+4a. CGM sensor is disconnected or not working.
+    	4a1. User notified: “CGM Disconnected! Reconnect it.”
+    	4a2. System switches to manual mode, so user needs to manually input it.
+4b. The CGM reports dangerously high glucose levels (>14 mmol/L).
+    	4b1. System warns users “Glucose is critically high! Consider insulin correction.”
