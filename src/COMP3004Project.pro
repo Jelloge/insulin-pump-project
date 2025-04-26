@@ -56,6 +56,8 @@ RESOURCES += \
     ui_icons.qrc \
     ui_icons.qrc \
     ui_icons.qrc \
+    ui_icons.qrc \
+    ui_icons/resources.qrc \
     ui_icons/resources.qrc \
     ui_icons/resources.qrc \
     ui_icons/resources.qrc  \
