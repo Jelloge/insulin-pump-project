@@ -5,6 +5,7 @@
 #include <QWidget>
 #include "boluscalculator.h"
 #include "glucosemonitoring.h"
+#include "batterymanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class bolusmenu; }
@@ -70,5 +71,3 @@ private:
 };
 
 #endif // BOLUSMENU_H
-
-
