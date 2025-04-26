@@ -1,4 +1,4 @@
-/*
+
 #pragma once
 #include <QDialog>
 #include <QJsonArray>
@@ -20,4 +20,3 @@ private:
     QJsonArray loadBolusLog() const;              // reads bolus_log.json
     void       populateBolusTable(const QJsonArray &arr);
 };
-*/

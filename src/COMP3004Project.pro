@@ -52,11 +52,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     ui_icons.qrc \
-    ui_icons.qrc \
-    ui_icons.qrc \
-    ui_icons/resources.qrc \
-    ui_icons/resources.qrc \
-    ui_icons/resources.qrc  \
     ui_icons/resources.qrc
 
 DISTFILES += \

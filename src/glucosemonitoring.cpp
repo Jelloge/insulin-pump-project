@@ -16,7 +16,7 @@ GlucoseMonitoring::~GlucoseMonitoring() {
 }
 
 void GlucoseMonitoring::start() {
-    timer->start(300000); // Generate reading every 5 mins
+    timer->start(10000); // Generate reading every 10 seconds
 }
 
 void GlucoseMonitoring::stop() {
