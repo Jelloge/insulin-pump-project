@@ -70,7 +70,7 @@ What each team member did:
 Files Submitted:
 
 ### - Use Case Model.pdf
-### - Traceability Matrix.pdf
+### - Requirements Traceability Matrix.pdf
 ### - readME.md
 	
 ### - UML Diagrams
@@ -87,9 +87,9 @@ Files Submitted:
     - Personal Profiles State Machine.png
 
 ### - Video Recordings - Correspond to their respective Sequence Diagrams
-    - Main Success Scenario
-    - Safety Scenario 1 Cancel Bolus
-    - Safety Scenario 2 Forgotten Pin
+    - Main_Success_Scenario.mp4
+    - Safety_Scenario_1.mp4
+    - Safety_Scenario_2.mp4
 ### - /src
         - BolusInfo.h
         - COMP3004Project.pro
