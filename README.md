@@ -70,28 +70,27 @@ What each team member did:
 Files Submitted:
 
 ### - Use Case Model.pdf
-### - Requirements Traceability Matrix.pdf
+### - Traceability Matrix.pdf
 ### - readME.md
 	
 ### - UML Diagrams
-    - Use Case Diagram
-    - UML Class Diagram
+    - Use Case Diagram.png
+    - UML Class Diagram.png
     
 ### - Sequence Diagrams
-    - Main Success Scenario
-    - Safety Scenario 1
-    - Safety Scenario 2
+    - Main Success Scenario.png
+    - Safety Scenario 1 Cancel Bolus.png
+    - Safety Scenario 2 Forgotten Pin.png
     
 ### - State Diagrams
-    - Main Success State Machine
-    - Personal Profiles State Machine
+    - Insulin Pump Controller State Machine.png
+    - Personal Profiles State Machine.png
 
 ### - Video Recordings - Correspond to their respective Sequence Diagrams
-    - Main Success Scenario
-    - Safety Scenario 1
-    - Safety Scenario 2
-### - InsulinPumpProject.zip
-    - /src
+    - Main Success Scenario.png
+    - Safety Scenario 1 Cancel Bolus.png
+    - Safety Scenario 2 Forgotten Pin.png
+### - /src
         - BolusInfo.h
         - COMP3004Project.pro
         - batterymanager.cpp
@@ -156,4 +155,3 @@ Files Submitted:
 	### - User may navigate to “Options” > “History” to view all prior insulin administrations, as well as all past CGM readings and alerts.
     	### - User can toggle between 1, 3, 6, 12 and 24 hours of CGM Readings
     	### - User can navigate through Options Menu. Most of the submenus are functional.
-
