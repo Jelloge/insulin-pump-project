@@ -134,7 +134,7 @@ QPushButton {
          </size>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>7</number>
         </property>
         <widget class="QWidget" name="mainMenuPage">
          <widget class="QScrollArea" name="scrollArea">
@@ -1460,12 +1460,12 @@ QPushButton {
             <widget class="QLabel" name="historyLabel">
              <property name="styleSheet">
               <string notr="true">QLabel {
-    font: bold 12pt;
-    background-color: #333;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid #555;
-        qproperty-alignment: 'AlignCenter';
+   font: bold 12pt;
+   background-color: #333;
+   color: white;
+   border-radius: 10px;
+   border: 2px solid #555;
+       qproperty-alignment: 'AlignCenter';
 }</string>
              </property>
              <property name="text">
@@ -1486,87 +1486,61 @@ QPushButton {
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_10">
            <item>
-            <widget class="QPushButton" name="pumpHistoryButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QTabWidget" name="tabWidget">
+             <property name="currentIndex">
+              <number>0</number>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>75</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-    font: bold 12pt;
-    background-color: #333;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid #555;
-}</string>
-             </property>
-             <property name="text">
-              <string>Pump History</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="bolusHistoryButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>75</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-    font: bold 12pt;
-    background-color: #333;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid #555;
-}</string>
-             </property>
-             <property name="text">
-              <string>Bolus History</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="controlIQHistoryButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>75</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-    font: bold 12pt;
-    background-color: #333;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid #555;
-}</string>
-             </property>
-             <property name="text">
-              <string>Control-IQ History</string>
-             </property>
+             <widget class="QWidget" name="bolusTab">
+              <attribute name="title">
+               <string>BOLUS</string>
+              </attribute>
+              <widget class="QTableView" name="bolusTable">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>721</width>
+                 <height>301</height>
+                </rect>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>301</height>
+                </size>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QWidget" name="cgmTab">
+              <attribute name="title">
+               <string>CGM</string>
+              </attribute>
+              <widget class="QTableView" name="cgmTable">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>721</width>
+                 <height>301</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QWidget" name="alertsTab">
+              <attribute name="title">
+               <string>ALERTS</string>
+              </attribute>
+              <widget class="QTableView" name="alertTable">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>731</width>
+                 <height>301</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -1599,12 +1573,12 @@ QPushButton {
              </property>
              <property name="styleSheet">
               <string notr="true">QLabel {
-    font: bold 12pt;
-    background-color: #333;
-    color: white;
-    border-radius: 10px;
-    border: 2px solid #555;
-        qproperty-alignment: 'AlignCenter';
+   font: bold 12pt;
+   background-color: #333;
+   color: white;
+   border-radius: 10px;
+   border: 2px solid #555;
+       qproperty-alignment: 'AlignCenter';
 }</string>
              </property>
              <property name="text">

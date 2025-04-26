@@ -397,13 +397,13 @@ bool GlucoseMonitoring::saveToJson(const QString &filename) {
         readingObject["value"] = reading.second;
 
         if (reading.second <= lowAlertThreshold) {
-            readingObject["alert"] = "LOW";
+            readingObject["alert"] = "LOW BG (<3.9 mmol/L)";
         }
         else if (reading.second >= highAlertThreshold) {
-            readingObject["alert"] = "HIGH";
+            readingObject["alert"] = "HIGH BG (>14 mmol/L)";
         }
         else {
-            readingObject["alert"] = "NORMAL";
+            readingObject["alert"] = "NORMAL BG";
         }
 
         readingsArray.append(readingObject);

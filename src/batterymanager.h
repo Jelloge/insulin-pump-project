@@ -12,6 +12,7 @@
 #include <QPointer>
 #include <QVector>
 #include "config.h"
+#include "historylogger.h"
 
 class BatteryManager : public QObject {
     Q_OBJECT

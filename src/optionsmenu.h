@@ -5,6 +5,7 @@
 #include "timedsettingsprofiles.h"
 #include "batterymanager.h"
 #include "config.h"
+#include "historylogger.h"
 
 #include <QWidget>
 #include <QPixmap>
@@ -106,15 +107,12 @@ private slots:
     void on_timeDateButton_clicked();
     void on_bluetoothSettingsButton_clicked();
 
-    // History
-    void on_pumpHistoryButton_clicked();
-    void on_bolusHistoryButton_clicked();
-    void on_controlIQHistoryButton_clicked();
-
 private:
     Ui::optionsMenu *ui;
     personalProfiles *profilesPage = nullptr;
     timedSettingsProfiles *timeProfilesPage = nullptr;
+    HistoryLogger *historyDlg = nullptr;
+    void showHistory();
 
     QTimer *fillTimer = nullptr;
     double amountFilled = 0.0;

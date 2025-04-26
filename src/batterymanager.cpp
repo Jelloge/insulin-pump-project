@@ -1,5 +1,6 @@
 #include "batterymanager.h"
 #include <QMessageBox>
+#include "historylogger.h"
 
 BatteryManager* BatteryManager::instance()
 {
@@ -80,6 +81,7 @@ void BatteryManager::turnOn()
     Config::instance()->resumeClock();
     emit deviceTurnedOn();
     qDebug() << "Device turned ON";
+
 }
 
 void BatteryManager::turnOff()

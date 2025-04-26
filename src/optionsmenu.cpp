@@ -1,5 +1,6 @@
 #include "optionsmenu.h"
 #include "ui_optionsmenu.h"
+#include "historylogger.h"
 
 optionsMenu::optionsMenu(QWidget *parent) :
     QWidget(parent),
@@ -1234,25 +1235,26 @@ void optionsMenu::on_bluetoothSettingsButton_clicked()
 // History Menu
 void optionsMenu::on_historyButton_clicked()
 {
+    showHistory();
     ui->stackedWidget->setCurrentIndex(7);
 }
 
-// Pump History
-void optionsMenu::on_pumpHistoryButton_clicked()
+void optionsMenu::showHistory()
 {
-    //Do Something
-}
+    HistoryLogger::instance()->refresh();
 
-// Bolus History
-void optionsMenu::on_bolusHistoryButton_clicked()
-{
-    //Do Something
-}
+    ui->bolusTable ->setModel(HistoryLogger::instance()->bolusModel());
+    ui->bolusTable ->verticalHeader()->setVisible(false);
+    ui->bolusTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->cgmTable   ->setModel(HistoryLogger::instance()->cgmModel());
+    ui->cgmTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->cgmTable->verticalHeader()->setVisible(false);
+    ui->alertTable ->setModel(HistoryLogger::instance()->alertModel());
+    ui->alertTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->alertTable->verticalHeader()->setVisible(false);
 
-// Control-IQ History
-void optionsMenu::on_controlIQHistoryButton_clicked()
-{
-    //Do Something
+    for (auto tv : {ui->bolusTable, ui->cgmTable, ui->alertTable})
+        tv->resizeColumnsToContents();
 }
 
 // Back Buttons
