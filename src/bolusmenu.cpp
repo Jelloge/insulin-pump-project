@@ -100,7 +100,7 @@ void bolusmenu::lloadActiveProfile() {
 void bolusmenu::calculateBolus() {
     lloadActiveProfile();
     double carbs = totalCarbs;
-    double iob =1.2;
+    double iob = 5;
     Almost = 1;
     confirmBGInput();
 
