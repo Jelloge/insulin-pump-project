@@ -145,7 +145,15 @@ personalProfiles::~personalProfiles()
 
 QString personalProfiles::getProfilesFilePath()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/profiles.json";
+    QString dirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir dir(dirPath);
+
+    // Check if the directory exists. If not, create it
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+
+    return dirPath + "/profiles.json";
 }
 
 QJsonArray personalProfiles::loadProfiles()
