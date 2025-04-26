@@ -96,7 +96,7 @@
          <string notr="true">color: white; font-weight: bold; font-size: 11pt;</string>
         </property>
         <property name="text">
-         <string>                        IOB: 1.2U</string>
+         <string>                        IOB: 5.0U</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
