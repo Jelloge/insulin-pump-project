@@ -46,7 +46,7 @@ public:
     QVector<QPair<QDateTime, double>> getReadings() const;
     double getLatestReading() const;
     void cycleTimeRange();
-    void saveToJson(const QString &filename);
+    bool saveToJson(const QString &filename);
 
 signals:
     void newReading(double value);
@@ -67,7 +67,6 @@ private:
     void updateGraphRange();
     void updateThresholdLines();
     void updateGlucoseDisplay(double value);
-    void setAlertThresholds(double low, double high); //change the high alert and low allert line
     void debugSeries();
 
     // UI Components
@@ -85,7 +84,7 @@ private:
     int currentTimeRange = 3;
 
     double lowAlertThreshold = 3.9;
-    double highAlertThreshold = 11.1;
+    double highAlertThreshold = 14.0;
 
 };
 

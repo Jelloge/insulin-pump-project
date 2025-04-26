@@ -13,7 +13,3 @@ public:
 };
 
 #endif // BOLUSCALCULATOR_H
-
-
-
-

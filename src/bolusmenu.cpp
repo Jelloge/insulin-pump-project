@@ -23,6 +23,11 @@ bolusmenu::bolusmenu(GlucoseMonitoring* gm, QWidget *parent)
         //double latestReading = glucoseMonitoring->getLatestGlucoseReading();
         double latestReading = glucoseMonitoring->getLatestReading();
         ui->currentBGInput->setText(QString::number(latestReading));
+
+        // Clock update hookup
+        connect(Config::instance(), &Config::clockUpdated, this, [=](const QString &time){
+            ui->timeDateLabel->setText(time);
+        });
     }
 
     // Button connections
@@ -407,7 +412,6 @@ void bolusmenu::on_backButton_clicked() {
     emit returnToMainWindow();
     this->close();
 }
-
 
 
 

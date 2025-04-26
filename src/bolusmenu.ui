@@ -193,7 +193,7 @@ QRadioButton:checked {
       <widget class="QCheckBox" name="showExtendedCheckBox">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>340</x>
          <y>140</y>
          <width>121</width>
          <height>31</height>
@@ -358,7 +358,7 @@ QRadioButton:checked {
          <x>10</x>
          <y>11</y>
          <width>731</width>
-         <height>62</height>
+         <height>51</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_topBar_2">
@@ -416,7 +416,7 @@ QRadioButton:checked {
            <string notr="true">font-weight: bold; font-size: 13pt; color: white;</string>
           </property>
           <property name="text">
-           <string>15:30 | 14 Nov</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -428,7 +428,7 @@ QRadioButton:checked {
       <widget class="QLineEdit" name="DeliverNow">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>340</x>
          <y>110</y>
          <width>121</width>
          <height>25</height>
@@ -438,9 +438,9 @@ QRadioButton:checked {
       <widget class="QLineEdit" name="DeliverLater">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>320</x>
          <y>230</y>
-         <width>113</width>
+         <width>161</width>
          <height>25</height>
         </rect>
        </property>
@@ -448,9 +448,9 @@ QRadioButton:checked {
       <widget class="QLabel" name="carbsLabel_2">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>320</x>
          <y>80</y>
-         <width>131</width>
+         <width>161</width>
          <height>20</height>
         </rect>
        </property>
@@ -463,15 +463,15 @@ QRadioButton:checked {
         </font>
        </property>
        <property name="text">
-        <string>Deliver Now</string>
+        <string>Deliver Now (%)</string>
        </property>
       </widget>
       <widget class="QLabel" name="carbsLabel_3">
        <property name="geometry">
         <rect>
-         <x>330</x>
+         <x>320</x>
          <y>200</y>
-         <width>131</width>
+         <width>161</width>
          <height>20</height>
         </rect>
        </property>
@@ -484,7 +484,7 @@ QRadioButton:checked {
         </font>
        </property>
        <property name="text">
-        <string>Deliver Later</string>
+        <string>Deliver Later (%)</string>
        </property>
       </widget>
      </widget>

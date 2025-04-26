@@ -1,4 +1,6 @@
 #include "glucosemonitoring.h"
+#include <QCoreApplication>
+#include <QDir>
 
 GlucoseMonitoring::GlucoseMonitoring(QObject *parent, QChartView *graphView, QLabel *glucoseLabel, QPushButton *timeRangeButton)
     : QObject(parent), cgmGraphViewUI(graphView), glucoseLabel(glucoseLabel), timeRangeButton(timeRangeButton) {
@@ -10,9 +12,13 @@ GlucoseMonitoring::GlucoseMonitoring(QObject *parent, QChartView *graphView, QLa
 }
 
 GlucoseMonitoring::~GlucoseMonitoring() {
+    timer->stop();
     delete timer;
     delete cgmGraphView;
-    saveToJson("data/glucose_data.json");
+
+    // Save to a "data" folder in the application directory
+    QString filename = QCoreApplication::applicationDirPath() + "/../glucose_log.json";
+    saveToJson(filename);
 }
 
 void GlucoseMonitoring::start() {
@@ -211,6 +217,10 @@ void GlucoseMonitoring::simulatePastReadings() {
     for (const auto &reading : simulatedReadings) {
         emit newReading(reading.second);
     }
+
+    // Save to JSON in the data folder
+    QString filename = QCoreApplication::applicationDirPath() + "/../glucose_log.json";
+    saveToJson(filename);
 }
 
 double GlucoseMonitoring::calculateRealisticGlucose(const QDateTime& timestamp) {
@@ -330,12 +340,6 @@ void GlucoseMonitoring::generateReading() {
                        .arg(reading, 0, 'f', 1)
                        .arg(timestamp.toString("hh:mm:ss")));
 
-        // Apply custom stylesheet to change the background color to black
-        msgBox.setStyleSheet("QMessageBox { background-color: #333; color: white; }"
-                             "QLabel { color: white; }"
-                             "QPushButton { background-color: #333; color: white; border: none; padding: 5px 15px; }"
-                             "QPushButton:hover { background-color: #555; }");
-
         msgBox.exec();  // Display the message box
     }
     else if (reading >= highAlertThreshold) {
@@ -348,14 +352,11 @@ void GlucoseMonitoring::generateReading() {
                        .arg(reading, 0, 'f', 1)
                        .arg(timestamp.toString("hh:mm:ss")));
 
-        // Apply custom stylesheet to change the background color to black
-        msgBox.setStyleSheet("QMessageBox { background-color: #333; color: white; }"
-                             "QLabel { color: white; }"
-                             "QPushButton { background-color: #333; color: white; border: none; padding: 5px 15px; }"
-                             "QPushButton:hover { background-color: #555; }");
-
         msgBox.exec();  // Display the message box
     }
+
+    QString filename = QCoreApplication::applicationDirPath() + "/../glucose_log.json";
+    saveToJson(filename);
 
 
 }
@@ -371,37 +372,38 @@ double GlucoseMonitoring::getLatestReading() const {
     return -1;
 }
 
-void GlucoseMonitoring::setAlertThresholds(double low, double high) {
-    lowAlertThreshold = low;
-    highAlertThreshold = high;
-}
-
-void GlucoseMonitoring::saveToJson(const QString &filename) {
+bool GlucoseMonitoring::saveToJson(const QString &filename) {
+    // Create the data directory if it doesn't exist
+    QDir dir(QFileInfo(filename).path());
+    if (!dir.exists()) {
+        if (!dir.mkpath(".")) {
+            qWarning() << "Failed to create data directory:" << dir.path();
+            return false;
+        }
+    }
     QJsonObject rootObject;
-
     rootObject["low_alert_threshold"] = lowAlertThreshold;
     rootObject["high_alert_threshold"] = highAlertThreshold;
     rootObject["total_readings"] = glucoseReadings.size();
     rootObject["export_timestamp"] = QDateTime::currentDateTime().toString(Qt::ISODate);
 
     QJsonArray readingsArray;
-
     for (int i = 0; i < glucoseReadings.size(); ++i) {
         const auto& reading = glucoseReadings[i];
         QJsonObject readingObject;
 
-        readingObject["sequence_number"] = i + 1;  // 1-based index
+        readingObject["sequence_number"] = i + 1;
         readingObject["timestamp"] = reading.first.toString(Qt::ISODate);
         readingObject["value"] = reading.second;
 
         if (reading.second <= lowAlertThreshold) {
-            readingObject["alert"] = "LOW";
+            readingObject["alert"] = "LOW BG (<3.9 mmol/L)";
         }
         else if (reading.second >= highAlertThreshold) {
-            readingObject["alert"] = "HIGH";
+            readingObject["alert"] = "HIGH BG (>14 mmol/L)";
         }
         else {
-            readingObject["alert"] = "NORMAL";
+            readingObject["alert"] = "NORMAL BG";
         }
 
         readingsArray.append(readingObject);
@@ -409,23 +411,23 @@ void GlucoseMonitoring::saveToJson(const QString &filename) {
 
     rootObject["readings"] = readingsArray;
 
-    QJsonDocument doc(rootObject);
+    // Write to file
     QFile file(filename);
-
-    if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Failed to open file for writing:" << filename;
-        return;
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qWarning() << "Failed to open file:" << file.errorString();
+        return false;
     }
 
-    file.write(doc.toJson());
+    qint64 bytesWritten = file.write(QJsonDocument(rootObject).toJson());
+    if (bytesWritten == -1) {
+        qWarning() << "Failed to write to file:" << file.errorString();
+        file.close();
+        return false;
+    }
+
     file.close();
 
-    // Verification
-    if (QFile::exists(filename)) {
-        qDebug() << "Saved" << glucoseReadings.size() << "readings to:"
-                 << QFileInfo(filename).absoluteFilePath();
-    } else {
-        qDebug() << "Save failed!" << file.errorString();
-    }
+    qDebug() << "Saved" << glucoseReadings.size() << "readings to:"
+             << QFileInfo(filename).absoluteFilePath();
+    return true;
 }
-
