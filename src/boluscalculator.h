@@ -1,5 +1,6 @@
 #ifndef BOLUSCALCULATOR_H
 #define BOLUSCALCULATOR_H
+#include "batterymanager.h"
 
 class BolusCalculator {
 public:
