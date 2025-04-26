@@ -28,6 +28,8 @@ bolusmenu::bolusmenu(GlucoseMonitoring* gm, QWidget *parent)
     // Button connections
     connect(ui->calculateButton, &QPushButton::clicked, this, &bolusmenu::calculateBolus);
     connect(ui->cancelBolusButton, &QPushButton::clicked, this, &bolusmenu::cancelBolus);
+    connect(ui->ChargeButton,  &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::plugIn);
+    connect(ui->turnOffButton, &QPushButton::clicked, BatteryManager::instance(), &BatteryManager::turnOff);
 
     connect(ui->overrideButton, &QPushButton::clicked, this, &bolusmenu::applyOverride);
     connect(ui->deleteHistoryButton, &QPushButton::clicked, this, &bolusmenu::deleteHistory);
@@ -98,7 +100,7 @@ void bolusmenu::lloadActiveProfile() {
 void bolusmenu::calculateBolus() {
     lloadActiveProfile();
     double carbs = totalCarbs;
-    double iob = 5;
+    double iob =1.2;
     Almost = 1;
     confirmBGInput();
 
@@ -181,7 +183,7 @@ void bolusmenu::applyOverride() {
         MidDilveryCancel = true;
         double durationHours = profileInsulinDuration / 60;  // Convert seconds to hours
 
-        currentBolusInfo = BolusInfo(FinalBolus, immediateBolus, extendedBolus, durationHours, "");
+        currentBolusInfo = BolusInfo(FinalBolus, immediateBolus, extendedBolus, durationHours, overrideMsg);
 
         OverrideupdateBolusDisplay();
         logBolus(currentBolusInfo);
@@ -197,23 +199,45 @@ void bolusmenu::applyOverride() {
     }
 }
 
+
 bool bolusmenu::checkMaxBolus(double& bolus) {
     if (bolus > profileMaxBolus) {
-        QString msg = QString("You requested a bolus of %1 units, which is higher than the Max Bolus setting of %2 units in your active profile.\n\n"
-                              "Would you like to proceed with the Max Bolus amount?")
-                              .arg(bolus)
-                              .arg(profileMaxBolus);
+        QString msg;
 
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,
-                                      "Max Bolus Alert 1",
-                                      msg,
-                                      QMessageBox::Yes | QMessageBox::No);
+        if (!profileCarbsEnabled) {
+            // If carbs are OFF, show the usual message
+            msg = QString("You requested a bolus of %1 units, which is higher than the Max Bolus setting of %2 units in your active profile.\n\n"
+                          "Would you like to proceed with the Max Bolus amount?").arg(bolus).arg(profileMaxBolus);
 
-        if (reply == QMessageBox::No) {
-            return false;  // User cancelled
+            QMessageBox::StandardButton reply = QMessageBox::question(this, "Max Bolus Alert", msg, QMessageBox::Yes | QMessageBox::No);
+            if (reply == QMessageBox::No) {
+                return false;  // User cancelled
+            } else {
+                bolus = profileMaxBolus;  // Use capped value
+            }
         } else {
-            bolus = profileMaxBolus;  // Use capped value
+            // If carbs are ON, show a single message explaining multiple steps
+            int numberOfBolusShots = (int)std::ceil(bolus / profileMaxBolus);
+            msg = QString("Your requested bolus of %1 units exceeds the Max Bolus setting of %2 units in your active profile.\n\n"
+                          "The bolus will be delivered in %3 separate steps of %2 units each.\n\n"
+                          "Do you want to proceed?").arg(bolus).arg(profileMaxBolus).arg(numberOfBolusShots);
+
+            QMessageBox::StandardButton reply = QMessageBox::question(this, "Max Bolus Alert", msg, QMessageBox::Yes | QMessageBox::No);
+            if (reply == QMessageBox::No) {
+                return false;  // User cancelled
+            } else {
+                // Process the bolus in steps of profileMaxBolus
+                double remainingBolus = bolus;
+                while (remainingBolus > profileMaxBolus) {
+                    remainingBolus -= profileMaxBolus;
+                    // Deliver the bolus here, e.g., call the bolus delivery function
+                }
+                if (remainingBolus > 0) {
+                    // Deliver the final bolus amount
+                }
+
+                bolus = profileMaxBolus;  // Capped to Max Bolus
+            }
         }
     }
     return true;  // Proceed
@@ -221,9 +245,10 @@ bool bolusmenu::checkMaxBolus(double& bolus) {
 
 
 void bolusmenu::confirmBGInput() {
-     lloadActiveProfile();
+    lloadActiveProfile();
     double currentBG = ui->currentBGInput->text().toDouble();  // Read from UI
     Almost = 1;  // Reset Almost at the beginning of each confirmation
+
     if (currentBG < profileTargetBG) {
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Correction Bolus",
@@ -231,15 +256,27 @@ void bolusmenu::confirmBGInput() {
             QMessageBox::Yes | QMessageBox::No);
 
         if (reply == QMessageBox::Yes) {
-
             double correctionBolus = (profileTargetBG - currentBG) / profileCorrectionFactor;
-            Almost = - correctionBolus;  // Subtract correction bolus if BG is low
+            Almost = -correctionBolus;  // Subtract correction bolus if BG is low
         }
-        else if(reply == QMessageBox::No){ Almost = 0;}
-        // If the user presses No, do nothing
-    } else if (currentBG > profileTargetBG) {
+        else if (reply == QMessageBox::No) {
+            Almost = 0;  // No action, set Almost to 0 if user clicks No
+        }
+    }
+    else if (currentBG > profileTargetBG) {
+        // User is above target BG, so offer correction bolus
         double correctionBolus = (currentBG - profileTargetBG) / profileCorrectionFactor;
-        Almost = correctionBolus;  // Add correction bolus if BG is high
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Correction Bolus",
+            "Your current BG is higher than the target. Would you like to apply a correction bolus?",
+            QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+            Almost = correctionBolus;  // Add correction bolus if BG is high
+        }
+        else if (reply == QMessageBox::No) {
+            Almost = 0;  // No action, set Almost to 0 if user clicks No
+        }
     }
 }
 
@@ -257,7 +294,7 @@ void bolusmenu::updateBolusDisplay() {
 
         result = QString("Final Bolus: %1 units\nImmediate Bolus: %2 units\nBolus Per Hour: %3 units")
                      .arg(currentBolusInfo.finalBolus)
-                     .arg(currentBolusInfo.extendedBolus)
+                     .arg(currentBolusInfo.immediateBolus)
                      .arg(QString::number(bolusPerHour, 'f', 2));
     } else {
         result = QString("Final Bolus: %1 units")
@@ -280,7 +317,7 @@ void bolusmenu::OverrideupdateBolusDisplay() {
 
         result = QString("Final Bolus: %1 units\nImmediate Bolus: %2 units\nBolus Per Hour: %3 units")
                      .arg(currentBolusInfo.finalBolus)
-                     .arg(currentBolusInfo.extendedBolus)
+                     .arg(currentBolusInfo.immediateBolus)
                      .arg(QString::number(bolusPerHour, 'f', 2));
     } else {
         result = QString("Final Bolus: %1 units")
@@ -370,6 +407,10 @@ void bolusmenu::on_backButton_clicked() {
     emit returnToMainWindow();
     this->close();
 }
+
+
+
+
 
 
 
