@@ -87,9 +87,9 @@ Files Submitted:
     - Personal Profiles State Machine.png
 
 ### - Video Recordings - Correspond to their respective Sequence Diagrams
-    - Main Success Scenario.png
-    - Safety Scenario 1 Cancel Bolus.png
-    - Safety Scenario 2 Forgotten Pin.png
+    - Main Success Scenario
+    - Safety Scenario 1 Cancel Bolus
+    - Safety Scenario 2 Forgotten Pin
 ### - /src
         - BolusInfo.h
         - COMP3004Project.pro
@@ -155,3 +155,7 @@ Files Submitted:
 	### - User may navigate to “Options” > “History” to view all prior insulin administrations, as well as all past CGM readings and alerts.
     	### - User can toggle between 1, 3, 6, 12 and 24 hours of CGM Readings
     	### - User can navigate through Options Menu. Most of the submenus are functional.
+
+
+
+
