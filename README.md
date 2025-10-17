@@ -7,7 +7,7 @@ Group Members:
 Aurelie Mei Yin Ng Yin Hing (101246374)
 Nikhil Bansal (100997597)
 Laven Joshi (101272355)
-Jasmine Jamali (101156769)
+Jasmine (101156769)
 
 ### Design Explanation:
 
