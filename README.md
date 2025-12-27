@@ -15,55 +15,6 @@ A new CGM reading is taken every 10 seconds in real time. New readings are shown
 
 Observer Design Patterns were used in this project by connecting Signals and Slots.
 
-What each team member did:
-
-### Nikhil:
-- Options Menu:
-    - Stop/Start Insulin
-    - Load:
-        - Change Cartridge
-        - Fill Tubing
-        - Fill Cannula
-        - Site Reminder
-    - Activity:
-        - Temporary Basal Rate
-    - My Pump:
-        - Personal Profiles
-        - Control-IQ
-        - Alerts and Reminders
-        - Pump Info
-    - My CGM:
-        - Start/Stop Sensor
-        - Calibrate CGM
-        - Transmitter ID
-        - CGM Info
-    - Device Settings:
-        - Display Settings
-        - Bluetooth Settings
-        - Time and Date
-        - Sound Volume
-
-### Jasmine:
-- Main GUI Home screen
-- Battery Functionality
-- Clock Functionality
-- Power functionality
-- History Settings:
-	- Bolus, CGM, Alerts History
-- Device Settings:
-	- Security PIN
-
-### Aurelie:
-- Glucose Monitoring
-    - Graphs/Simulated Readings
-    - Glucose level alerts
-    - Glucose History
-
-### Laven:
-- Bolus Calculator
-- Enable access to full insulin history
-- Store last insulin injection (extended or immediate)
-
 
 ## Organization of the Submission ##
 
